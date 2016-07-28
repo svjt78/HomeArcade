@@ -7,12 +7,28 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A513FAAF1D3C825A00C6BBAE /* PropertyTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A513FAAE1D3C825A00C6BBAE /* PropertyTableViewController.swift */; };
 		A54567CE1D2CA86400F44BF0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A54567CD1D2CA86400F44BF0 /* AppDelegate.swift */; };
 		A54567D01D2CA86400F44BF0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A54567CF1D2CA86400F44BF0 /* ViewController.swift */; };
-		A54567D31D2CA86400F44BF0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A54567D11D2CA86400F44BF0 /* Main.storyboard */; };
 		A54567D51D2CA86400F44BF0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A54567D41D2CA86400F44BF0 /* Assets.xcassets */; };
 		A54567D81D2CA86400F44BF0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A54567D61D2CA86400F44BF0 /* LaunchScreen.storyboard */; };
 		A54567E31D2CA86500F44BF0 /* HomeArcadeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A54567E21D2CA86500F44BF0 /* HomeArcadeTests.swift */; };
+		A54567EE1D32A97500F44BF0 /* Property.swift in Sources */ = {isa = PBXBuildFile; fileRef = A54567ED1D32A97500F44BF0 /* Property.swift */; };
+		A54567F01D32BC0400F44BF0 /* PurchaseLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A54567EF1D32BC0400F44BF0 /* PurchaseLocation.swift */; };
+		A54567F21D32C0EE00F44BF0 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A54567F11D32C0EE00F44BF0 /* libsqlite3.dylib */; };
+		A54567F41D32D33100F44BF0 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A54567F31D32D33100F44BF0 /* CoreLocation.framework */; };
+		A54568001D331DE800F44BF0 /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = A54567F71D331DE800F44BF0 /* FMDatabase.m */; };
+		A54568011D331DE800F44BF0 /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = A54567F91D331DE800F44BF0 /* FMResultSet.m */; };
+		A54568021D331DE800F44BF0 /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = A54567FB1D331DE800F44BF0 /* FMDatabaseQueue.m */; };
+		A54568031D331DE800F44BF0 /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = A54567FD1D331DE800F44BF0 /* FMDatabaseAdditions.m */; };
+		A54568041D331DE800F44BF0 /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = A54567FF1D331DE800F44BF0 /* FMDatabasePool.m */; };
+		A54568071D331EA900F44BF0 /* PropertyDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A54568061D331EA900F44BF0 /* PropertyDataManager.swift */; };
+		A54568091D3320C400F44BF0 /* ActionResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A54568081D3320C400F44BF0 /* ActionResponse.swift */; };
+		A5BE0E561D3DA94B00848517 /* PropertyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5BE0E541D3DA94B00848517 /* PropertyTableViewCell.swift */; };
+		A5BE0E591D3DBEBF00848517 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5BE0E581D3DBEBF00848517 /* Reachability.swift */; };
+		A5E1CB231D4997660042B0CC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A5E1CB211D4997660042B0CC /* Main.storyboard */; };
+		A5E1CB251D49A9FA0042B0CC /* DetailImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E1CB241D49A9FA0042B0CC /* DetailImageViewController.swift */; };
+		A5E1CB2B1D49B8410042B0CC /* CustomPresentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E1CB2A1D49B8410042B0CC /* CustomPresentViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -26,16 +42,39 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A513FAAE1D3C825A00C6BBAE /* PropertyTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PropertyTableViewController.swift; sourceTree = "<group>"; };
 		A54567CA1D2CA86400F44BF0 /* HomeArcade.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HomeArcade.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A54567CD1D2CA86400F44BF0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A54567CF1D2CA86400F44BF0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		A54567D21D2CA86400F44BF0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A54567D41D2CA86400F44BF0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A54567D71D2CA86400F44BF0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A54567D91D2CA86400F44BF0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A54567DE1D2CA86500F44BF0 /* HomeArcadeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HomeArcadeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A54567E21D2CA86500F44BF0 /* HomeArcadeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeArcadeTests.swift; sourceTree = "<group>"; };
 		A54567E41D2CA86500F44BF0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A54567ED1D32A97500F44BF0 /* Property.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Property.swift; sourceTree = "<group>"; };
+		A54567EF1D32BC0400F44BF0 /* PurchaseLocation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PurchaseLocation.swift; sourceTree = "<group>"; };
+		A54567F11D32C0EE00F44BF0 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = ../../../../../../usr/lib/libsqlite3.dylib; sourceTree = "<group>"; };
+		A54567F31D32D33100F44BF0 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		A54567F51D331DE700F44BF0 /* HomeArcade-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HomeArcade-Bridging-Header.h"; sourceTree = "<group>"; };
+		A54567F61D331DE800F44BF0 /* FMDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FMDatabase.h; path = ../../../../fmdb/src/fmdb/FMDatabase.h; sourceTree = "<group>"; };
+		A54567F71D331DE800F44BF0 /* FMDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FMDatabase.m; path = ../../../../fmdb/src/fmdb/FMDatabase.m; sourceTree = "<group>"; };
+		A54567F81D331DE800F44BF0 /* FMResultSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FMResultSet.h; path = ../../../../fmdb/src/fmdb/FMResultSet.h; sourceTree = "<group>"; };
+		A54567F91D331DE800F44BF0 /* FMResultSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FMResultSet.m; path = ../../../../fmdb/src/fmdb/FMResultSet.m; sourceTree = "<group>"; };
+		A54567FA1D331DE800F44BF0 /* FMDatabaseQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FMDatabaseQueue.h; path = ../../../../fmdb/src/fmdb/FMDatabaseQueue.h; sourceTree = "<group>"; };
+		A54567FB1D331DE800F44BF0 /* FMDatabaseQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FMDatabaseQueue.m; path = ../../../../fmdb/src/fmdb/FMDatabaseQueue.m; sourceTree = "<group>"; };
+		A54567FC1D331DE800F44BF0 /* FMDatabaseAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FMDatabaseAdditions.h; path = ../../../../fmdb/src/fmdb/FMDatabaseAdditions.h; sourceTree = "<group>"; };
+		A54567FD1D331DE800F44BF0 /* FMDatabaseAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FMDatabaseAdditions.m; path = ../../../../fmdb/src/fmdb/FMDatabaseAdditions.m; sourceTree = "<group>"; };
+		A54567FE1D331DE800F44BF0 /* FMDatabasePool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FMDatabasePool.h; path = ../../../../fmdb/src/fmdb/FMDatabasePool.h; sourceTree = "<group>"; };
+		A54567FF1D331DE800F44BF0 /* FMDatabasePool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FMDatabasePool.m; path = ../../../../fmdb/src/fmdb/FMDatabasePool.m; sourceTree = "<group>"; };
+		A54568051D331E4400F44BF0 /* FMDB.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = FMDB.h; path = ../../../../fmdb/src/fmdb/FMDB.h; sourceTree = "<group>"; };
+		A54568061D331EA900F44BF0 /* PropertyDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PropertyDataManager.swift; sourceTree = "<group>"; };
+		A54568081D3320C400F44BF0 /* ActionResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ActionResponse.swift; path = ../../FoodCritic/FoodCritic/ActionResponse.swift; sourceTree = "<group>"; };
+		A5BE0E541D3DA94B00848517 /* PropertyTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PropertyTableViewCell.swift; sourceTree = "<group>"; };
+		A5BE0E581D3DBEBF00848517 /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
+		A5E1CB221D4997660042B0CC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		A5E1CB241D49A9FA0042B0CC /* DetailImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailImageViewController.swift; sourceTree = "<group>"; };
+		A5E1CB2A1D49B8410042B0CC /* CustomPresentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CustomPresentViewController.swift; path = ../CustomPresentViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -43,6 +82,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A54567F41D32D33100F44BF0 /* CoreLocation.framework in Frameworks */,
+				A54567F21D32C0EE00F44BF0 /* libsqlite3.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -59,6 +100,8 @@
 		A54567C11D2CA86400F44BF0 = {
 			isa = PBXGroup;
 			children = (
+				A54567F31D32D33100F44BF0 /* CoreLocation.framework */,
+				A54567F11D32C0EE00F44BF0 /* libsqlite3.dylib */,
 				A54567CC1D2CA86400F44BF0 /* HomeArcade */,
 				A54567E11D2CA86500F44BF0 /* HomeArcadeTests */,
 				A54567CB1D2CA86400F44BF0 /* Products */,
@@ -78,11 +121,32 @@
 			isa = PBXGroup;
 			children = (
 				A54567CD1D2CA86400F44BF0 /* AppDelegate.swift */,
+				A54567F61D331DE800F44BF0 /* FMDatabase.h */,
+				A54567F71D331DE800F44BF0 /* FMDatabase.m */,
+				A54567F81D331DE800F44BF0 /* FMResultSet.h */,
+				A54568051D331E4400F44BF0 /* FMDB.h */,
+				A54567F91D331DE800F44BF0 /* FMResultSet.m */,
+				A54567FA1D331DE800F44BF0 /* FMDatabaseQueue.h */,
+				A54567FB1D331DE800F44BF0 /* FMDatabaseQueue.m */,
+				A54567FC1D331DE800F44BF0 /* FMDatabaseAdditions.h */,
+				A54567FD1D331DE800F44BF0 /* FMDatabaseAdditions.m */,
+				A5E1CB211D4997660042B0CC /* Main.storyboard */,
+				A5E1CB2A1D49B8410042B0CC /* CustomPresentViewController.swift */,
+				A5E1CB241D49A9FA0042B0CC /* DetailImageViewController.swift */,
+				A54568081D3320C400F44BF0 /* ActionResponse.swift */,
+				A54567FE1D331DE800F44BF0 /* FMDatabasePool.h */,
+				A54567FF1D331DE800F44BF0 /* FMDatabasePool.m */,
 				A54567CF1D2CA86400F44BF0 /* ViewController.swift */,
-				A54567D11D2CA86400F44BF0 /* Main.storyboard */,
+				A54567EF1D32BC0400F44BF0 /* PurchaseLocation.swift */,
+				A54567ED1D32A97500F44BF0 /* Property.swift */,
+				A5BE0E541D3DA94B00848517 /* PropertyTableViewCell.swift */,
+				A513FAAE1D3C825A00C6BBAE /* PropertyTableViewController.swift */,
+				A5BE0E581D3DBEBF00848517 /* Reachability.swift */,
 				A54567D41D2CA86400F44BF0 /* Assets.xcassets */,
 				A54567D61D2CA86400F44BF0 /* LaunchScreen.storyboard */,
 				A54567D91D2CA86400F44BF0 /* Info.plist */,
+				A54567F51D331DE700F44BF0 /* HomeArcade-Bridging-Header.h */,
+				A54568061D331EA900F44BF0 /* PropertyDataManager.swift */,
 			);
 			path = HomeArcade;
 			sourceTree = "<group>";
@@ -179,9 +243,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A5E1CB231D4997660042B0CC /* Main.storyboard in Resources */,
 				A54567D81D2CA86400F44BF0 /* LaunchScreen.storyboard in Resources */,
 				A54567D51D2CA86400F44BF0 /* Assets.xcassets in Resources */,
-				A54567D31D2CA86400F44BF0 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -199,8 +263,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A5BE0E591D3DBEBF00848517 /* Reachability.swift in Sources */,
+				A54568011D331DE800F44BF0 /* FMResultSet.m in Sources */,
+				A54567EE1D32A97500F44BF0 /* Property.swift in Sources */,
+				A5BE0E561D3DA94B00848517 /* PropertyTableViewCell.swift in Sources */,
+				A54567F01D32BC0400F44BF0 /* PurchaseLocation.swift in Sources */,
+				A5E1CB2B1D49B8410042B0CC /* CustomPresentViewController.swift in Sources */,
+				A54568021D331DE800F44BF0 /* FMDatabaseQueue.m in Sources */,
+				A54568041D331DE800F44BF0 /* FMDatabasePool.m in Sources */,
 				A54567D01D2CA86400F44BF0 /* ViewController.swift in Sources */,
+				A54568001D331DE800F44BF0 /* FMDatabase.m in Sources */,
+				A5E1CB251D49A9FA0042B0CC /* DetailImageViewController.swift in Sources */,
+				A54568091D3320C400F44BF0 /* ActionResponse.swift in Sources */,
+				A513FAAF1D3C825A00C6BBAE /* PropertyTableViewController.swift in Sources */,
 				A54567CE1D2CA86400F44BF0 /* AppDelegate.swift in Sources */,
+				A54568071D331EA900F44BF0 /* PropertyDataManager.swift in Sources */,
+				A54568031D331DE800F44BF0 /* FMDatabaseAdditions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -223,20 +301,20 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		A54567D11D2CA86400F44BF0 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				A54567D21D2CA86400F44BF0 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		A54567D61D2CA86400F44BF0 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				A54567D71D2CA86400F44BF0 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		A5E1CB211D4997660042B0CC /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A5E1CB221D4997660042B0CC /* Base */,
+			);
+			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -329,10 +407,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = HomeArcade/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.HomeArcade;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "HomeArcade/HomeArcade-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -340,10 +422,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = HomeArcade/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.HomeArcade;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "HomeArcade/HomeArcade-Bridging-Header.h";
 			};
 			name = Release;
 		};
@@ -390,6 +475,7 @@
 				A54567E91D2CA86500F44BF0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		A54567EA1D2CA86500F44BF0 /* Build configuration list for PBXNativeTarget "HomeArcadeTests" */ = {
 			isa = XCConfigurationList;
@@ -398,6 +484,7 @@
 				A54567EC1D2CA86500F44BF0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
