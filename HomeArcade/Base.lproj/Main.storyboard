@@ -107,7 +107,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Add descriptions" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="b6r-VS-f06">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="b6r-VS-f06">
                                 <rect key="frame" x="20" y="288" width="535" height="128"/>
                                 <color key="backgroundColor" red="0.78818873359999997" green="0.95448704770000004" blue="0.88075657890000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -117,17 +117,17 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Purchase Address" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jM7-eo-Tp0">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Purchase Address" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jM7-eo-Tp0">
                                 <rect key="frame" x="20" y="433" width="314" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Purchase City" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ouI-43-Fgr">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Purchase City" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ouI-43-Fgr">
                                 <rect key="frame" x="20" y="471" width="314" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Purchase State" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0xv-vH-C1P">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Purchase State" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0xv-vH-C1P">
                                 <rect key="frame" x="20" y="509" width="190" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -136,12 +136,12 @@
                                     <action selector="triggerDatePicker:" destination="BYZ-38-t0r" eventType="editingDidEnd" id="uCH-VZ-qMZ"/>
                                 </connections>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Zip Code" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ygd-sH-nEl">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Zip Code" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ygd-sH-nEl">
                                 <rect key="frame" x="237" y="509" width="97" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Date Time" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="K8G-YL-a2A">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Purchase Date Time" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="K8G-YL-a2A">
                                 <rect key="frame" x="369" y="433" width="131" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="odo-Hc-reo"/>
@@ -239,7 +239,7 @@
                         <outlet property="ReceiptPanGesture" destination="Q3r-Az-xux" id="9Mx-Hk-CJY"/>
                         <outlet property="ReceiptTapGR" destination="Ute-MY-14y" id="bQt-qs-gNH"/>
                         <outlet property="SaveProp" destination="gvJ-fG-tFm" id="6yG-fB-Qfk"/>
-                        <segue destination="OFp-D4-Hi4" kind="presentation" identifier="imageDetailSegue" id="IZh-MM-Y6O"/>
+                        <segue destination="nsF-wT-zq6" kind="presentation" identifier="imageDetailSegue" id="arR-hZ-T14"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -279,16 +279,20 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="noimage" translatesAutoresizingMaskIntoConstraints="NO" id="ib6-dV-GP0">
-                                <rect key="frame" x="0.0" y="64" width="580" height="536"/>
+                            <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="noimage" translatesAutoresizingMaskIntoConstraints="NO" id="ib6-dV-GP0">
+                                <rect key="frame" x="0.0" y="-20" width="600" height="620"/>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="GwC-vX-5ow" appends="YES" id="k0G-ad-rP8"/>
+                                </connections>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="ib6-dV-GP0" firstAttribute="leading" secondItem="Ro9-ho-mtz" secondAttribute="leading" id="9ra-D3-ves"/>
-                            <constraint firstItem="ib6-dV-GP0" firstAttribute="trailing" secondItem="Ro9-ho-mtz" secondAttribute="trailingMargin" id="JJo-di-Mhc"/>
-                            <constraint firstItem="ib6-dV-GP0" firstAttribute="top" secondItem="TIT-t7-U5d" secondAttribute="bottom" id="Uc3-Co-7Ta"/>
-                            <constraint firstItem="ib6-dV-GP0" firstAttribute="bottom" secondItem="Wua-yb-Ukq" secondAttribute="top" id="zSP-2H-oXa"/>
+                            <constraint firstItem="Wua-yb-Ukq" firstAttribute="top" secondItem="ib6-dV-GP0" secondAttribute="bottom" id="Kgf-kS-Iz8"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="ib6-dV-GP0" secondAttribute="trailing" constant="-20" id="jXz-kB-X3p"/>
+                            <constraint firstItem="ib6-dV-GP0" firstAttribute="leading" secondItem="Ro9-ho-mtz" secondAttribute="leadingMargin" constant="-20" id="oUK-R1-A6w"/>
+                            <constraint firstItem="ib6-dV-GP0" firstAttribute="top" secondItem="Ro9-ho-mtz" secondAttribute="topMargin" constant="-20" id="vAC-xF-ozj"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="7P9-8k-zV8">
@@ -301,11 +305,17 @@
                     <connections>
                         <outlet property="DetailImage" destination="ib6-dV-GP0" id="TIh-hI-ybZ"/>
                         <outlet property="DetailViewBackButton" destination="Rfh-8g-fep" id="70L-u1-dF3"/>
+                        <outlet property="DismissDetailImageGR" destination="GwC-vX-5ow" id="qh0-kX-7jp"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="a3u-tI-Yz6" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <pinchGestureRecognizer id="GwC-vX-5ow">
+                    <connections>
+                        <action selector="DismissDetailImage:" destination="nsF-wT-zq6" id="Xj2-u1-Mbr"/>
+                    </connections>
+                </pinchGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="5067" y="305"/>
+            <point key="canvasLocation" x="4393" y="305"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="60d-3D-y3w">
@@ -346,29 +356,11 @@
             </objects>
             <point key="canvasLocation" x="2966" y="711"/>
         </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="qri-LQ-uiF">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="OFp-D4-Hi4" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="TPS-jQ-wZA">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="nsF-wT-zq6" kind="relationship" relationship="rootViewController" id="b2a-R1-tfK"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Sdu-9S-5xL" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="4369" y="305"/>
-        </scene>
     </scenes>
     <resources>
         <image name="noimage" width="137" height="137"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="qM0-i3-fnL"/>
+        <segue reference="Dqv-oa-g51"/>
     </inferredMetricsTieBreakers>
 </document>

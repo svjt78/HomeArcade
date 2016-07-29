@@ -51,7 +51,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITextFieldDelegate
     var imageInd: Int = 0
     var imageDetailInd = 0
     
+    //Instanciate nimation controllers
     let customPresentAnimationController = CustomPresentViewController()
+    let customDismissAnimationController = CustomDismissAnimationController()
+    
     
     var pickOption = ["one", "two", "three", "seven", "fifteen"]
     
@@ -60,7 +63,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITextFieldDelegate
         // Do any additional setup after loading the view, typically from a nib.
         
         // Change the navigation bar background color to blue.
-        navigationController!.navigationBar.barTintColor = UIColor.cyanColor()
+        navigationController!.navigationBar.barTintColor = UIColor.orangeColor()
         
         // Change the color of the navigation bar button items to white.
         navigationController!.navigationBar.tintColor = UIColor.whiteColor()
@@ -339,6 +342,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITextFieldDelegate
         // Dismiss the picker.
         dismissViewControllerAnimated(true, completion: nil)
     }
+    
 
     // This method lets you configure a view controller before it's presented.
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -346,10 +350,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITextFieldDelegate
             
             //Create Property object
             let PropID = Int(ItemID.text!)!
-            let PropName = PropertyName.text ?? ""
+            let PropName = PropertyName.text
             let PropPhoto = PropertyImage.image
             let ReceiptPhoto = ReceiptImage.image
-            var PropDesc = PropertyDesc.text
+            var PropDesc = PropertyDesc.text ?? ""
             
             let whitespaceSet = NSCharacterSet.whitespaceCharacterSet()
             if PropertyDesc.text!.stringByTrimmingCharactersInSet(whitespaceSet) == "" {
@@ -359,16 +363,17 @@ class ViewController: UIViewController, UITableViewDelegate, UITextFieldDelegate
             }
             
             // Set the meal to be passed to MealTableViewController after the unwind segue.
-            property = Property(propID: PropID, propName: PropName, propPhoto: PropPhoto, receiptPhoto: ReceiptPhoto, propDesc: PropDesc!)
+            property = Property(propID: PropID, propName: PropName!, propPhoto: PropPhoto, receiptPhoto: ReceiptPhoto, propDesc: PropDesc)
             
             //Save Location object
+            if (PurchaseStreet.text  != nil) && (PurchaseStreet.text != "") {
             let lcID = 1
             let prID = PropID
-            let lcAddress = PurchaseStreet.text
-            let lcCity = PurchaseCity.text
-            let lcState = PurchaseState.text
-            let lcZip = PurchaseZip.text
-            let lcDate = PurchaseDateTime.text
+            let lcAddress = (PurchaseStreet.text != nil) ? PurchaseStreet.text : "Not found"
+            let lcCity = (PurchaseCity.text != nil) ? PurchaseCity.text : "Not found"
+            let lcState = (PurchaseState.text != nil) ? PurchaseState.text : "Not found"
+            let lcZip = (PurchaseZip.text != nil) ? PurchaseZip.text : "Not found"
+            let lcDate = (PurchaseDateTime.text != nil) ? PurchaseDateTime.text : "Not found"
             
             let location = PurchaseLocation(lID: lcID, pID: prID, lAddress: lcAddress, lCity: lcCity, lState: lcState, lZip: lcZip, lDate: lcDate!)
             
@@ -384,14 +389,15 @@ class ViewController: UIViewController, UITableViewDelegate, UITextFieldDelegate
                 alertController.addAction(defaultAction)
                 presentViewController(alertController, animated: true, completion: nil)
             }
+            }
             
         }else{
             if segue.identifier! == "imageDetailSegue" {
                 
-      //          let toViewController = segue.destinationViewController as! DetailImageViewController
+               let toViewController = segue.destinationViewController as! DetailImageViewController
                 
-                let nav = segue.destinationViewController as! UINavigationController
-                let toViewController = nav.topViewController as! DetailImageViewController
+      //          let nav = segue.destinationViewController as! UINavigationController
+      //          let toViewController = nav.topViewController as! DetailImageViewController
                 
                 toViewController.transitioningDelegate = self
                 
@@ -413,9 +419,15 @@ class ViewController: UIViewController, UITableViewDelegate, UITextFieldDelegate
         
     }
     
+    //Return animation controller objects - start
     func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         return customPresentAnimationController
     }
+    
+    func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return customDismissAnimationController
+    }
+        //Return animation controller objects - end
     
     override func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject!) -> Bool {
         

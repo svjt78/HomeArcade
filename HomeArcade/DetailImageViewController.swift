@@ -15,10 +15,12 @@ class DetailImageViewController: UIViewController {
     
     @IBOutlet weak var DetailImage: UIImageView!
     
+    @IBOutlet var DismissDetailImageGR: UIPinchGestureRecognizer!
+    
     var imagePassed: UIImage?
     
     override func viewDidLoad() {
-        super.viewDidLoad()
+      super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         
@@ -30,6 +32,12 @@ class DetailImageViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    
+    /*
+    @IBAction func DismissDetailImage(sender: UIPinchGestureRecognizer) {
+        dismissViewControllerAnimated(true, completion: nil)
+        
+    }  */
     
     @IBAction func CancelDetailImage(sender: AnyObject) {
         
@@ -44,6 +52,14 @@ class DetailImageViewController: UIViewController {
         }
 
     }
+    
+
+    
+    @IBAction func DismissDetailImage(sender: UIPinchGestureRecognizer) {
+        
+        dismissViewControllerAnimated(true, completion: nil)
+    }
+    
     
 
     /*

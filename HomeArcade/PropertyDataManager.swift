@@ -91,10 +91,10 @@ class PropertyDataManager  {
                     print("Error: Receipt Photo not saved successfully")
             
             }else{
-                //              let insertSQL = "INSERT INTO MEALS (name, photopath, rating) VALUES ('\(meal.name)', '\(imagePath)', '\(meal.rating)')"
+                
                 let insertSQL = "INSERT INTO PROPERTY (name, photopath1, photopath2, desc) VALUES (?, ?, ?, ?)"
                 
-                //               let result = mealDB.executeUpdate(insertSQL, withArgumentsInArray: nil)
+                
                 let result = propertyDB.executeUpdate(insertSQL, withArgumentsInArray: [property.propName!, imagePath1, imagePath2, property.propDesc!])
                 
                 if !result {
@@ -361,7 +361,7 @@ class PropertyDataManager  {
             let lZip = loc.lZip!
             let lDate = loc.lDate!
             
-            let insertSQL1 = "INSERT INTO PURCHASELOCATION (propertyID, street, city, state, zip, date ) VALUES (?, ?, ?, ?, ?, ?)"
+            let insertSQL1 = "INSERT INTO PURCHASELOCATION (propid, street, city, state, zip, date ) VALUES (?, ?, ?, ?, ?, ?)"
             
             let result = propertyDB.executeUpdate(insertSQL1, withArgumentsInArray: [loc.pID!, loc.lAddress!, loc.lCity!, loc.lState!, loc.lZip!, loc.lDate!])
             

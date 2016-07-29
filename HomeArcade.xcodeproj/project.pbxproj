@@ -29,6 +29,7 @@
 		A5E1CB231D4997660042B0CC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A5E1CB211D4997660042B0CC /* Main.storyboard */; };
 		A5E1CB251D49A9FA0042B0CC /* DetailImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E1CB241D49A9FA0042B0CC /* DetailImageViewController.swift */; };
 		A5E1CB2B1D49B8410042B0CC /* CustomPresentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E1CB2A1D49B8410042B0CC /* CustomPresentViewController.swift */; };
+		A5E1CB2D1D4AD8460042B0CC /* CustomDismissAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E1CB2C1D4AD8460042B0CC /* CustomDismissAnimationController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -75,6 +76,7 @@
 		A5E1CB221D4997660042B0CC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A5E1CB241D49A9FA0042B0CC /* DetailImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailImageViewController.swift; sourceTree = "<group>"; };
 		A5E1CB2A1D49B8410042B0CC /* CustomPresentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CustomPresentViewController.swift; path = ../CustomPresentViewController.swift; sourceTree = "<group>"; };
+		A5E1CB2C1D4AD8460042B0CC /* CustomDismissAnimationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomDismissAnimationController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,6 +133,7 @@
 				A54567FC1D331DE800F44BF0 /* FMDatabaseAdditions.h */,
 				A54567FD1D331DE800F44BF0 /* FMDatabaseAdditions.m */,
 				A5E1CB211D4997660042B0CC /* Main.storyboard */,
+				A5E1CB2C1D4AD8460042B0CC /* CustomDismissAnimationController.swift */,
 				A5E1CB2A1D49B8410042B0CC /* CustomPresentViewController.swift */,
 				A5E1CB241D49A9FA0042B0CC /* DetailImageViewController.swift */,
 				A54568081D3320C400F44BF0 /* ActionResponse.swift */,
@@ -275,6 +278,7 @@
 				A54568001D331DE800F44BF0 /* FMDatabase.m in Sources */,
 				A5E1CB251D49A9FA0042B0CC /* DetailImageViewController.swift in Sources */,
 				A54568091D3320C400F44BF0 /* ActionResponse.swift in Sources */,
+				A5E1CB2D1D4AD8460042B0CC /* CustomDismissAnimationController.swift in Sources */,
 				A513FAAF1D3C825A00C6BBAE /* PropertyTableViewController.swift in Sources */,
 				A54567CE1D2CA86400F44BF0 /* AppDelegate.swift in Sources */,
 				A54568071D331EA900F44BF0 /* PropertyDataManager.swift in Sources */,

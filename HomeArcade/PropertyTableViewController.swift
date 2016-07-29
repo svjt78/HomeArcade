@@ -36,7 +36,8 @@ class PropertyTableViewController: UITableViewController, CLLocationManagerDeleg
 
         
         // Change the navigation bar background color to blue.
-        navigationController!.navigationBar.barTintColor = UIColor.cyanColor()
+    //    navigationController!.navigationBar.barTintColor = UIColor.cyanColor()
+        navigationController!.navigationBar.barTintColor = UIColor.orangeColor()
         
         // Change the color of the navigation bar button items to white.
         navigationController!.navigationBar.tintColor = UIColor.whiteColor()
@@ -96,8 +97,9 @@ class PropertyTableViewController: UITableViewController, CLLocationManagerDeleg
      let cellIdentifier = "PropertyTableViewCell"
      let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! PropertyTableViewCell
      
-     cell.layer.borderWidth = 2.0
-     cell.layer.borderColor = UIColor.blackColor().CGColor
+     cell.layer.borderWidth = 0.2
+    // cell.layer.borderColor = UIColor.blueColor().CGColor
+     cell.layer.borderColor = UIColor.lightGrayColor().CGColor
      
      // Fetches the appropriate meal for the data source layout.
      let property = properties[indexPath.row]
@@ -113,7 +115,7 @@ class PropertyTableViewController: UITableViewController, CLLocationManagerDeleg
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let row: Int = indexPath.row
         currentSelection = row
-        
+   
         // animate
         [tableView .beginUpdates()]
         
@@ -136,7 +138,7 @@ class PropertyTableViewController: UITableViewController, CLLocationManagerDeleg
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         
         if (indexPath.row == currentSelection) {
-            return  200;
+            return 100;
         }
         else {
             return 100;
