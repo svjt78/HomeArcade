@@ -62,7 +62,8 @@ class PropertyDataManager  {
         
         if propertyDB.open() {
             
-            let imagename: String = property.propName!
+      //      let imagename: String = property.propName!
+            let imageid: Int = property.propID
             
             var propImage: UIImage
             var receiptImage: UIImage
@@ -79,8 +80,8 @@ class PropertyDataManager  {
                 receiptImage = property.receiptPhoto!
             }
 
-            let imagePath1 = fileInDocumentsDirectory(imagename + ".png")
-            let imagePath2 = fileInDocumentsDirectory(imagename + "R" + ".png")
+            let imagePath1 = fileInDocumentsDirectory(String(imageid) + ".png")
+            let imagePath2 = fileInDocumentsDirectory(String(imageid) + "R" + ".png")
             
             if !saveImage(propImage, path: imagePath1) {
                 actionResponse = ActionResponse(responseCode: "Y", responseDesc: "Property Photo not saved successfully")!
@@ -98,7 +99,7 @@ class PropertyDataManager  {
                 let result = propertyDB.executeUpdate(insertSQL, withArgumentsInArray: [property.propName!, imagePath1, imagePath2, property.propDesc!])
                 
                 if !result {
-                    actionResponse = ActionResponse(responseCode: "Y", responseDesc: "Meal not saved successfully")!
+                    actionResponse = ActionResponse(responseCode: "Y", responseDesc: "Property not saved successfully")!
                     print("Error: \(propertyDB.lastErrorMessage())")
                 } else {
                     
@@ -209,10 +210,10 @@ class PropertyDataManager  {
             
             propertyDB.close()
             
-            let imagepath1 = fileInDocumentsDirectory(property.propName! + ".png")
+            let imagepath1 = fileInDocumentsDirectory(String(property.propID) + ".png")
             deleteImage(imagepath1)
             
-            let imagepath2 = fileInDocumentsDirectory(property.propName! + "R" + ".png")
+            let imagepath2 = fileInDocumentsDirectory(String(property.propID) + "R" + ".png")
             deleteImage(imagepath2)
             
         } else {
@@ -237,7 +238,7 @@ class PropertyDataManager  {
             if (propName == "name") {
                 actionResponse = ActionResponse(responseCode: "Y", responseDesc: "This is default property. Add new property")!
             }else {
-                
+                /*
                 if propName == property.propName {
                     
                     //get path pointing to document directory
@@ -247,12 +248,18 @@ class PropertyDataManager  {
                     updateImage(filePath2, photo: receiptPhoto)
 
                 }else{
-                    filePath1 = fileInDocumentsDirectory(property.propName! + ".png")
+                    filePath1 = fileInDocumentsDirectory(String(property.propID) + ".png")
                     saveImage(propPhoto, path: filePath1)
-                    filePath2 = fileInDocumentsDirectory(property.propName! + "R" + ".png")
+                    filePath2 = fileInDocumentsDirectory(String(property.propID) + "R" + ".png")
                     saveImage(receiptPhoto, path: filePath2)
 
                 }
+                */
+                filePath1 = fileInDocumentsDirectory(String(property.propID) + ".png")
+                saveImage(propPhoto, path: filePath1)
+                filePath2 = fileInDocumentsDirectory(String(property.propID) + "R" + ".png")
+                saveImage(receiptPhoto, path: filePath2)
+
                 let result = propertyDB.executeUpdate("UPDATE PROPERTY SET NAME = ?, PHOTOPATH1 = ?, PHOTOPATH2 = ?, DESC = ? WHERE ID = ?", withArgumentsInArray: [property.propName!, filePath1, filePath2, property.propDesc!, property.propID])
                 
                 if !result {

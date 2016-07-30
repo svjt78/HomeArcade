@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -87,6 +88,66 @@
             </objects>
             <point key="canvasLocation" x="2291" y="305"/>
         </scene>
+        <!--Camera View Controller-->
+        <scene sceneID="2OB-tb-cxA">
+            <objects>
+                <viewController id="YjR-wP-Bek" customClass="CameraViewController" customModule="HomeArcade" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="8bz-Zp-gtG"/>
+                        <viewControllerLayoutGuide type="bottom" id="8g8-ym-7D0"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="tD0-Wh-K7i">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="iphone_camera_icon2" highlightedImage="highlightedImages" translatesAutoresizingMaskIntoConstraints="NO" id="iaQ-SX-aV2">
+                                <rect key="frame" x="20" y="84" width="560" height="446"/>
+                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <gestureRecognizers/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="iaQ-SX-aV2" secondAttribute="height" multiplier="560:377" constant="-102.49336870026525" id="jQW-ge-1nL"/>
+                                </constraints>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="31P-hi-Z24" appends="YES" id="iqI-rJ-Zn2"/>
+                                </connections>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="iaQ-SX-aV2" firstAttribute="leading" secondItem="tD0-Wh-K7i" secondAttribute="leadingMargin" id="0oh-Dj-RPo"/>
+                            <constraint firstItem="iaQ-SX-aV2" firstAttribute="top" secondItem="8bz-Zp-gtG" secondAttribute="bottom" constant="20" id="5Gp-dg-dkb"/>
+                            <constraint firstItem="iaQ-SX-aV2" firstAttribute="trailing" secondItem="tD0-Wh-K7i" secondAttribute="trailingMargin" id="wPH-fu-sau"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="Lnw-j0-UsQ">
+                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="MLF-a3-k9E">
+                            <connections>
+                                <action selector="CancelCameraView:" destination="YjR-wP-Bek" id="3Wx-2d-VCe"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Accept" id="g7i-0b-O5w">
+                            <connections>
+                                <segue destination="wJ0-Xc-nMN" kind="unwind" unwindAction="unwindToDetailView:" id="bJg-Jw-uFS"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="CameraImageView" destination="iaQ-SX-aV2" id="W0B-g1-Ljb"/>
+                        <outlet property="CancelCameraView" destination="MLF-a3-k9E" id="wE7-MA-o6j"/>
+                        <outlet property="CaptureImageGR" destination="31P-hi-Z24" id="V83-76-UfY"/>
+                        <outlet property="SaveCameraView" destination="g7i-0b-O5w" id="gFt-Wm-YHf"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="a1m-gX-Xec" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="wJ0-Xc-nMN" userLabel="Exit" sceneMemberID="exit"/>
+                <tapGestureRecognizer id="31P-hi-Z24">
+                    <connections>
+                        <action selector="CaptureImage:" destination="YjR-wP-Bek" id="nnV-16-Mhg"/>
+                    </connections>
+                </tapGestureRecognizer>
+            </objects>
+            <point key="canvasLocation" x="4774" y="-476"/>
+        </scene>
         <!--New property-->
         <scene sceneID="tne-QT-ifu">
             <objects>
@@ -158,20 +219,22 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="noimage" translatesAutoresizingMaskIntoConstraints="NO" id="qDX-iD-wki">
-                                <rect key="frame" x="20" y="133" width="264" height="128"/>
-                                <gestureRecognizers/>
-                                <connections>
-                                    <outletCollection property="gestureRecognizers" destination="X07-nh-2N2" appends="YES" id="mc8-fo-QkU"/>
-                                    <outletCollection property="gestureRecognizers" destination="yec-bl-5m4" appends="YES" id="cGI-9m-JJO"/>
-                                </connections>
-                            </imageView>
                             <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="noimage" translatesAutoresizingMaskIntoConstraints="NO" id="GSm-fG-OXj">
                                 <rect key="frame" x="321" y="133" width="264" height="128"/>
                                 <gestureRecognizers/>
                                 <connections>
                                     <outletCollection property="gestureRecognizers" destination="Ute-MY-14y" appends="YES" id="AcX-mf-BaK"/>
                                     <outletCollection property="gestureRecognizers" destination="Q3r-Az-xux" appends="YES" id="smV-qS-mQU"/>
+                                    <outletCollection property="gestureRecognizers" destination="K5D-VX-cNl" appends="YES" id="ZRh-EF-wyZ"/>
+                                </connections>
+                            </imageView>
+                            <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="noimage" translatesAutoresizingMaskIntoConstraints="NO" id="qDX-iD-wki">
+                                <rect key="frame" x="20" y="133" width="264" height="128"/>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="X07-nh-2N2" appends="YES" id="mc8-fo-QkU"/>
+                                    <outletCollection property="gestureRecognizers" destination="yec-bl-5m4" appends="YES" id="cGI-9m-JJO"/>
+                                    <outletCollection property="gestureRecognizers" destination="m4c-6u-aB7" appends="YES" id="cri-bJ-QG3"/>
                                 </connections>
                             </imageView>
                         </subviews>
@@ -229,6 +292,7 @@
                         <outlet property="PropTapGR" destination="X07-nh-2N2" id="Unu-b1-UTw"/>
                         <outlet property="PropertyDesc" destination="b6r-VS-f06" id="BlS-nY-JB6"/>
                         <outlet property="PropertyImage" destination="qDX-iD-wki" id="Bdn-gy-Aka"/>
+                        <outlet property="PropertyImageCaptureGR" destination="m4c-6u-aB7" id="jqK-IP-idj"/>
                         <outlet property="PropertyName" destination="nUE-op-Y9a" id="pvl-RP-5G2"/>
                         <outlet property="PurchaseCity" destination="ouI-43-Fgr" id="8Cx-tQ-se9"/>
                         <outlet property="PurchaseDateTime" destination="K8G-YL-a2A" id="E7E-zl-p2J"/>
@@ -236,10 +300,12 @@
                         <outlet property="PurchaseStreet" destination="jM7-eo-Tp0" id="UcF-Gk-UcK"/>
                         <outlet property="PurchaseZip" destination="Ygd-sH-nEl" id="3nt-M4-rPC"/>
                         <outlet property="ReceiptImage" destination="GSm-fG-OXj" id="eNA-JX-Cxt"/>
+                        <outlet property="ReceiptImageCaptureGR" destination="K5D-VX-cNl" id="B8E-Ku-uch"/>
                         <outlet property="ReceiptPanGesture" destination="Q3r-Az-xux" id="9Mx-Hk-CJY"/>
                         <outlet property="ReceiptTapGR" destination="Ute-MY-14y" id="bQt-qs-gNH"/>
                         <outlet property="SaveProp" destination="gvJ-fG-tFm" id="6yG-fB-Qfk"/>
                         <segue destination="nsF-wT-zq6" kind="presentation" identifier="imageDetailSegue" id="arR-hZ-T14"/>
+                        <segue destination="fpy-Jw-qN0" kind="presentation" identifier="CameraViewSegue" id="HUZ-Dq-p3A"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -264,6 +330,16 @@
                         <action selector="ReceiptPanGesture:" destination="BYZ-38-t0r" id="dAQ-Th-gA7"/>
                     </connections>
                 </panGestureRecognizer>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="m4c-6u-aB7">
+                    <connections>
+                        <action selector="PropertyImageCapture:" destination="BYZ-38-t0r" id="ZqJ-PT-43L"/>
+                    </connections>
+                </pongPressGestureRecognizer>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="K5D-VX-cNl">
+                    <connections>
+                        <action selector="ReceiptImageCapture:" destination="BYZ-38-t0r" id="Hhb-2z-GXh"/>
+                    </connections>
+                </pongPressGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="3708" y="305"/>
         </scene>
@@ -356,11 +432,31 @@
             </objects>
             <point key="canvasLocation" x="2966" y="711"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="ynw-2S-yeE">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="fpy-Jw-qN0" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="yic-v4-iBg">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="YjR-wP-Bek" kind="relationship" relationship="rootViewController" id="Lgc-bm-j9b"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="t28-ye-or0" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4096" y="-476"/>
+        </scene>
     </scenes>
     <resources>
+        <image name="highlightedImages" width="115" height="109"/>
+        <image name="iphone_camera_icon2" width="112" height="112"/>
         <image name="noimage" width="137" height="137"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Dqv-oa-g51"/>
+        <segue reference="qM0-i3-fnL"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -24,6 +24,8 @@
 		A54568041D331DE800F44BF0 /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = A54567FF1D331DE800F44BF0 /* FMDatabasePool.m */; };
 		A54568071D331EA900F44BF0 /* PropertyDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A54568061D331EA900F44BF0 /* PropertyDataManager.swift */; };
 		A54568091D3320C400F44BF0 /* ActionResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A54568081D3320C400F44BF0 /* ActionResponse.swift */; };
+		A597E0AB1D4C380600F2F9E9 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A597E0AA1D4C380600F2F9E9 /* CameraViewController.swift */; };
+		A597E0AF1D4C7E9D00F2F9E9 /* CustomNavigationAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A597E0AE1D4C7E9D00F2F9E9 /* CustomNavigationAnimationController.swift */; };
 		A5BE0E561D3DA94B00848517 /* PropertyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5BE0E541D3DA94B00848517 /* PropertyTableViewCell.swift */; };
 		A5BE0E591D3DBEBF00848517 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5BE0E581D3DBEBF00848517 /* Reachability.swift */; };
 		A5E1CB231D4997660042B0CC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A5E1CB211D4997660042B0CC /* Main.storyboard */; };
@@ -71,6 +73,8 @@
 		A54568051D331E4400F44BF0 /* FMDB.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = FMDB.h; path = ../../../../fmdb/src/fmdb/FMDB.h; sourceTree = "<group>"; };
 		A54568061D331EA900F44BF0 /* PropertyDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PropertyDataManager.swift; sourceTree = "<group>"; };
 		A54568081D3320C400F44BF0 /* ActionResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ActionResponse.swift; path = ../../FoodCritic/FoodCritic/ActionResponse.swift; sourceTree = "<group>"; };
+		A597E0AA1D4C380600F2F9E9 /* CameraViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
+		A597E0AE1D4C7E9D00F2F9E9 /* CustomNavigationAnimationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomNavigationAnimationController.swift; sourceTree = "<group>"; };
 		A5BE0E541D3DA94B00848517 /* PropertyTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PropertyTableViewCell.swift; sourceTree = "<group>"; };
 		A5BE0E581D3DBEBF00848517 /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		A5E1CB221D4997660042B0CC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -133,7 +137,9 @@
 				A54567FC1D331DE800F44BF0 /* FMDatabaseAdditions.h */,
 				A54567FD1D331DE800F44BF0 /* FMDatabaseAdditions.m */,
 				A5E1CB211D4997660042B0CC /* Main.storyboard */,
+				A597E0AA1D4C380600F2F9E9 /* CameraViewController.swift */,
 				A5E1CB2C1D4AD8460042B0CC /* CustomDismissAnimationController.swift */,
+				A597E0AE1D4C7E9D00F2F9E9 /* CustomNavigationAnimationController.swift */,
 				A5E1CB2A1D49B8410042B0CC /* CustomPresentViewController.swift */,
 				A5E1CB241D49A9FA0042B0CC /* DetailImageViewController.swift */,
 				A54568081D3320C400F44BF0 /* ActionResponse.swift */,
@@ -282,7 +288,9 @@
 				A513FAAF1D3C825A00C6BBAE /* PropertyTableViewController.swift in Sources */,
 				A54567CE1D2CA86400F44BF0 /* AppDelegate.swift in Sources */,
 				A54568071D331EA900F44BF0 /* PropertyDataManager.swift in Sources */,
+				A597E0AF1D4C7E9D00F2F9E9 /* CustomNavigationAnimationController.swift in Sources */,
 				A54568031D331DE800F44BF0 /* FMDatabaseAdditions.m in Sources */,
+				A597E0AB1D4C380600F2F9E9 /* CameraViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

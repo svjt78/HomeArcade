@@ -210,7 +210,7 @@ class PropertyTableViewController: UITableViewController, CLLocationManagerDeleg
                             self.locationManager.startUpdatingLocation()
                         }
                     } else {
-                        let alertController = UIAlertController(title: "Alert!", message: "Device is not connected to Internet", preferredStyle: .Alert)
+                        let alertController = UIAlertController(title: "Alert!", message: "Device is not connected to Internet. Location service not available", preferredStyle: .Alert)
                         
                         let defaultAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
                         alertController.addAction(defaultAction)

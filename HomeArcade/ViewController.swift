@@ -46,14 +46,20 @@ class ViewController: UIViewController, UITableViewDelegate, UITextFieldDelegate
     
     @IBOutlet var ReceiptPanGesture: UIPanGestureRecognizer!
     
+    @IBOutlet var PropertyImageCaptureGR: UILongPressGestureRecognizer!
+    
+    @IBOutlet var ReceiptImageCaptureGR: UILongPressGestureRecognizer!
+    
     var property: Property?
     var location: PurchaseLocation?
     var imageInd: Int = 0
     var imageDetailInd = 0
+    var imageCaptureInd = 0
     
     //Instanciate nimation controllers
     let customPresentAnimationController = CustomPresentViewController()
     let customDismissAnimationController = CustomDismissAnimationController()
+    let customNavigationAnimationController = CustomNavigationAnimationController()
     
     
     var pickOption = ["one", "two", "three", "seven", "fifteen"]
@@ -78,6 +84,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITextFieldDelegate
         PurchaseState.delegate = self
         PurchaseZip.delegate = self
         PurchaseDateTime.delegate = self
+        self.navigationController?.delegate = self
         
         //Setup Pickerview attached to the Purchase State textfield
         
@@ -106,7 +113,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITextFieldDelegate
             PurchaseState.text = loc.lState
             PurchaseZip.text = loc.lZip
             PurchaseDateTime.text = loc.lDate
-            
+            /*
             if PurchaseStreet.text == "Not found" {
                 PurchaseStreet.hidden = true
             }
@@ -126,8 +133,27 @@ class ViewController: UIViewController, UITableViewDelegate, UITextFieldDelegate
             if PurchaseDateTime.text == "Not found" {
                 PurchaseDateTime.hidden = true
             }
+            */
+            if PurchaseStreet.text == "Not found" {
+                PurchaseStreet.text = ""
+            }
             
+            if PurchaseCity.text == "Not found" {
+                PurchaseCity.text = ""
+            }
             
+            if PurchaseState.text == "Not found" {
+                PurchaseState.text = ""
+            }
+            
+            if PurchaseZip.text == "Not found" {
+                PurchaseZip.text = ""
+            }
+            
+            if PurchaseDateTime.text == "Not found" {
+                PurchaseDateTime.text = ""
+            }
+
             
         }else{
             ItemID.text = "1"
@@ -412,16 +438,56 @@ class ViewController: UIViewController, UITableViewDelegate, UITextFieldDelegate
                 
                 toViewController.imagePassed = selectedImage
                 
-
                 
+            }else{
+                if segue.identifier! == "CameraViewSegue" {
+                    
+                    let nav = segue.destinationViewController as! UINavigationController
+                    let toViewController = nav.topViewController as! CameraViewController
+                    
+                    toViewController.transitioningDelegate = self
+
+            
+                }
             }
         }
         
     }
     
+    @IBAction func unwindToDetailView(sender: UIStoryboardSegue) {
+        if let sourceViewController = sender.sourceViewController as? CameraViewController, image1 = sourceViewController.CameraImageView.image {
+            
+            if imageCaptureInd == 1 {
+                PropertyImage.image = image1
+            }else{
+                ReceiptImage.image = image1
+            }
+        }
+    }
+    
+    
+    @IBAction func PropertyImageCapture(sender: UILongPressGestureRecognizer) {
+        imageCaptureInd = 1
+        performSegueWithIdentifier("CameraViewSegue", sender: nil)
+
+    }
+    
+    
+    @IBAction func ReceiptImageCapture(sender: UILongPressGestureRecognizer) {
+        imageCaptureInd = 2
+        performSegueWithIdentifier("CameraViewSegue", sender: nil)
+
+    }
+    
+    
     //Return animation controller objects - start
     func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         return customPresentAnimationController
+    }
+    
+    func navigationController(navigationController: UINavigationController, animationControllerForOperation operation: UINavigationControllerOperation, fromViewController fromVC: UIViewController, toViewController toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        customNavigationAnimationController.reverse = operation == .Pop
+        return customNavigationAnimationController
     }
     
     func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
