@@ -15,7 +15,7 @@ class PropertyTableViewController: UITableViewController, CLLocationManagerDeleg
     
     var properties = [Property]()
     
-    var propertyDB: FMDatabase = FMDatabase()
+    var propertyDB1: FMDatabase = FMDatabase()
     
     let photo1 = UIImage(named: "noimage")!
     let photo2 = UIImage(named: "noimage")!
@@ -57,8 +57,8 @@ class PropertyTableViewController: UITableViewController, CLLocationManagerDeleg
         locationManager.delegate = self
         
         let pdm: PropertyDataManager =  PropertyDataManager()
-        propertyDB = pdm.PropertyDatabaseSetUp()
-        properties = pdm.loadPropData(propertyDB)
+        propertyDB1 = pdm.PropertyDatabaseSetUp()
+        properties = pdm.loadPropData(propertyDB1)
         
     }
     
@@ -147,14 +147,16 @@ class PropertyTableViewController: UITableViewController, CLLocationManagerDeleg
     }
     
     @IBAction func unwindToMealList(sender: UIStoryboardSegue) {
-        if let sourceViewController = sender.sourceViewController as? ViewController, property1 = sourceViewController.property {
+        if let sourceViewController = sender.sourceViewController as? ViewController, property1 = sourceViewController.comboObject {
             
-            property = property1
+            property = property1.property
+            let location: PurchaseLocation = property1.location
             
             if let selectedIndexPath = tableView.indexPathForSelectedRow {
                 // Update an existing property.
                 let pdm: PropertyDataManager = PropertyDataManager()
-                let response: ActionResponse = pdm.updatePropData(propertyDB, property: property)
+                
+                let response: ActionResponse = pdm.updatePropData(propertyDB1, property: property)
                 
                 if (response.responseCode) == "Y" {
                     
@@ -170,16 +172,37 @@ class PropertyTableViewController: UITableViewController, CLLocationManagerDeleg
                     
                     alertWindow.rootViewController?.presentViewController(alertController, animated: true, completion: nil)
                     
+                }else{
+                    //update location
+                    
+                    
+                    let response: ActionResponse = pdm.StoreLocationData(propertyDB1, loc: location)
+                    
+                    if (response.responseCode) == "Y" {
+                        
+                        let alertController = UIAlertController(title: "Alert!", message: response.responseDesc, preferredStyle: .Alert)
+                        
+                        let defaultAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
+                        alertController.addAction(defaultAction)
+                        
+                        let alertWindow = UIWindow(frame: UIScreen.mainScreen().bounds)
+                        alertWindow.rootViewController = UIViewController()
+                        alertWindow.windowLevel = UIWindowLevelAlert + 1;
+                        alertWindow.makeKeyAndVisible()
+                        
+                        alertWindow.rootViewController?.presentViewController(alertController, animated: true, completion: nil)
+
                 }else {
-                    properties = pdm.loadPropData(propertyDB)
+                    properties = pdm.loadPropData(propertyDB1)
+                    }
                 }
                 
-            }
-            else {
+                }else{
+            
                 // Add a new property.
                 
                 let pdm: PropertyDataManager = PropertyDataManager()
-                let response: ActionResponse = pdm.SavePropData(propertyDB, property: property)
+                let response: ActionResponse = pdm.SavePropData(propertyDB1, property: property)
                 
                 if (response.responseCode) == "y" {
                     
@@ -224,7 +247,7 @@ class PropertyTableViewController: UITableViewController, CLLocationManagerDeleg
                         
                     }
                     
-                    properties = pdm.loadPropData(propertyDB)
+                    properties = pdm.loadPropData(propertyDB1)
                     
                 }
                 
@@ -263,7 +286,7 @@ class PropertyTableViewController: UITableViewController, CLLocationManagerDeleg
         if editingStyle == .Delete {
             let pdm: PropertyDataManager = PropertyDataManager()
             let propertyItem = properties[indexPath.row]
-            let response: ActionResponse = pdm.deletePropData(propertyDB, property: propertyItem)
+            let response: ActionResponse = pdm.deletePropData(propertyDB1, property: propertyItem)
             if (response.responseCode) == "y" {
                 
                 let alertController = UIAlertController(title: "Alert!", message: "Property is not deleted", preferredStyle: .Alert)
@@ -279,11 +302,11 @@ class PropertyTableViewController: UITableViewController, CLLocationManagerDeleg
                 alertWindow.rootViewController?.presentViewController(alertController, animated: true, completion: nil)
                 
             }else {
-                //delete location info for deleted meal
+                //delete location info for deleted property
                 let pdm: PropertyDataManager =  PropertyDataManager()
-                let propertyDB = pdm.PropertyDatabaseSetUp()
+                let propertyDB1 = pdm.PropertyDatabaseSetUp()
                 let pID = propertyItem.propID
-                let response: ActionResponse = pdm.deleteLocationData(propertyDB, pID: pID)
+                let response: ActionResponse = pdm.deleteLocationData(propertyDB1, pID: pID)
                 
                 if (response.responseCode) == "y" {
                     
@@ -303,7 +326,7 @@ class PropertyTableViewController: UITableViewController, CLLocationManagerDeleg
                     //refresh table view
                     properties.removeAtIndex(indexPath.row)
                     tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-                    properties = pdm.loadPropData(propertyDB)
+                    properties = pdm.loadPropData(propertyDB1)
                 }
             }
             
@@ -373,8 +396,8 @@ class PropertyTableViewController: UITableViewController, CLLocationManagerDeleg
         {
             //get the mealID just saved
             let pdm: PropertyDataManager =  PropertyDataManager()
-            let propertyDB = pdm.PropertyDatabaseSetUp()
-            let id: Int = pdm.justsavedPropID(propertyDB)
+            let propertyDB1 = pdm.PropertyDatabaseSetUp()
+            let id: Int = pdm.getJustSavedPropID(propertyDB1)
             
             //get address compoents from geocoder
             let street = (containsPlacemark.thoroughfare != nil) ? containsPlacemark.thoroughfare : "Not found"
@@ -400,13 +423,21 @@ class PropertyTableViewController: UITableViewController, CLLocationManagerDeleg
             let year = components.year
             let day = components.day
             
-            let propertyDate = String(month) + "/" + String(day) + "/" + String(year) + ", " + String(hour) + ":" + String(minutes)
+            
+            let monthCode: String = getMonthCode(month)
+            
+//            let propertyDate = String(month) + "/" + String(day) + "/" + String(year) + ", " + String(hour) + ":" + String(minutes)
+ //           let propertyDate = monthCode + " " + day + "," + " " + year
+            let propertyDatePart1 = monthCode + " "
+            let propertyDatePart2 = String(day) + ","
+            let propertyDatePart3 = " " + String(year)
+            let propertyDate = propertyDatePart1 + propertyDatePart2 + propertyDatePart3
             
             //create restaurant object
             let loc = PurchaseLocation(lID: 1, pID: id, lAddress: street, lCity: locality, lState: administrativeArea, lZip: postalCode, lDate: propertyDate)
             
             //save restaurant object and handle any error
-            let response: ActionResponse = pdm.SaveLocationData(propertyDB, loc: loc!)
+            let response: ActionResponse = pdm.SaveLocationData(propertyDB1, loc: loc!)
             
             if (response.responseCode) == "Y" {
                 
@@ -429,6 +460,39 @@ class PropertyTableViewController: UITableViewController, CLLocationManagerDeleg
         }
         
     }
-
     
+    func getMonthCode(month: Int) -> String {
+        
+        var monthCode: String = " "
+        
+        if month == 1 {
+            monthCode = "Jan"
+        }else if month == 2 {
+            monthCode = "Feb"
+        }else if month == 3 {
+            monthCode = "Mar"
+        }else if month == 4 {
+            monthCode = "Apr"
+        }else if month == 5 {
+            monthCode = "May"
+        }else if month == 6 {
+            monthCode = "Jun"
+        }else if month == 7 {
+            monthCode = "Jul"
+        }else if month == 8 {
+            monthCode = "Aug"
+        }else if month == 9 {
+            monthCode = "Sep"
+        }else if month == 10 {
+            monthCode = "Oct"
+        }else if month == 11 {
+            monthCode = "Nov"
+        }else if month == 12 {
+            monthCode = "Dec"
+        }
+        
+        return monthCode
+    
+    }
+
 }

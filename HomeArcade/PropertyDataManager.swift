@@ -12,7 +12,7 @@ class PropertyDataManager  {
     
     func PropertyDatabaseSetUp () -> FMDatabase {
         
-        var propertyDB: FMDatabase?
+        var propertyDB1: FMDatabase?
         
         let filemgr = NSFileManager.defaultManager()
         let dirPaths = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)[0]
@@ -23,47 +23,46 @@ class PropertyDataManager  {
         
         if !filemgr.fileExistsAtPath(databasePath.path!) {
             
-            propertyDB = FMDatabase(path: databasePath.path!)
+            propertyDB1 = FMDatabase(path: databasePath.path!)
             
-            if propertyDB == nil {
-                print("Error: \(propertyDB!.lastErrorMessage())")
+            if propertyDB1 == nil {
+                print("Error: \(propertyDB1!.lastErrorMessage())")
             }
             
-            if propertyDB!.open() {
+            if propertyDB1!.open() {
                 
-                let sql_stmt = "CREATE TABLE IF NOT EXISTS PROPERTY (ID INTEGER PRIMARY KEY AUTOINCREMENT, NAME TEXT, PHOTOPATH1 TEXT, PHOTOPATH2 TEXT, DESC TEXT)"
-                if !propertyDB!.executeStatements(sql_stmt) {
-                    print("Error: \(propertyDB!.lastErrorMessage())")
+                let sql_stmt = "CREATE TABLE IF NOT EXISTS PROPERTYSTORE (ID INTEGER PRIMARY KEY AUTOINCREMENT, NAME TEXT, PHOTOPATH1 TEXT, PHOTOPATH2 TEXT, DESC TEXT)"
+                if !propertyDB1!.executeStatements(sql_stmt) {
+                    print("Error: \(propertyDB1!.lastErrorMessage())")
                 }
                 
                 let sql_stmt1 = "CREATE TABLE IF NOT EXISTS PURCHASELOCATION (ID1 INTEGER PRIMARY KEY AUTOINCREMENT, PROPID INTEGER, STREET TEXT, CITY TEXT, STATE TEXT, ZIP TEXT, DATE TEXT)"
-                if !propertyDB!.executeStatements(sql_stmt1) {
-                    print("Error: \(propertyDB!.lastErrorMessage())")
+                if !propertyDB1!.executeStatements(sql_stmt1) {
+                    print("Error: \(propertyDB1!.lastErrorMessage())")
                 }
                 
-                propertyDB!.close()
+                propertyDB1!.close()
                 
             } else {
-                print("Error: \(propertyDB!.lastErrorMessage())")
+                print("Error: \(propertyDB1!.lastErrorMessage())")
             }
         }else{
-            propertyDB = FMDatabase(path: databasePath.path!)
+            propertyDB1 = FMDatabase(path: databasePath.path!)
         }
-        return propertyDB!
+        return propertyDB1!
         
     }
     
     
-    func SavePropData(propertyDB: FMDatabase, property: Property) -> ActionResponse {
+    func SavePropData(propertyDB1: FMDatabase, property: Property) -> ActionResponse {
         
         //        let mealDB = FMDatabase(path: databasePath.path!)
         
         var actionResponse = ActionResponse(responseCode: "n", responseDesc: "")
         
-        if propertyDB.open() {
+        if propertyDB1.open() {
             
       //      let imagename: String = property.propName!
-            let imageid: Int = property.propID
             
             var propImage: UIImage
             var receiptImage: UIImage
@@ -79,9 +78,12 @@ class PropertyDataManager  {
             }else {
                 receiptImage = property.receiptPhoto!
             }
+            
+            let lastImageID: Int = getJustSavedPropID(propertyDB1)
+            let currImageID: Int = lastImageID + 1
 
-            let imagePath1 = fileInDocumentsDirectory(String(imageid) + ".png")
-            let imagePath2 = fileInDocumentsDirectory(String(imageid) + "R" + ".png")
+            let imagePath1 = fileInDocumentsDirectory("I" + String(currImageID) + ".png")
+            let imagePath2 = fileInDocumentsDirectory("I" +  String(currImageID) + "R" + ".png")
             
             if !saveImage(propImage, path: imagePath1) {
                 actionResponse = ActionResponse(responseCode: "Y", responseDesc: "Property Photo not saved successfully")!
@@ -93,24 +95,26 @@ class PropertyDataManager  {
             
             }else{
                 
-                let insertSQL = "INSERT INTO PROPERTY (name, photopath1, photopath2, desc) VALUES (?, ?, ?, ?)"
+                let insertSQL = "INSERT INTO PROPERTYSTORE (name, photopath1, photopath2, desc) VALUES (?, ?, ?, ?)"
                 
                 
-                let result = propertyDB.executeUpdate(insertSQL, withArgumentsInArray: [property.propName!, imagePath1, imagePath2, property.propDesc!])
+                let result = propertyDB1.executeUpdate(insertSQL, withArgumentsInArray: [property.propName!, imagePath1, imagePath2, property.propDesc!])
+                
                 
                 if !result {
                     actionResponse = ActionResponse(responseCode: "Y", responseDesc: "Property not saved successfully")!
-                    print("Error: \(propertyDB.lastErrorMessage())")
+                    print("Error: \(propertyDB1.lastErrorMessage())")
                 } else {
                     
                     actionResponse = ActionResponse(responseCode: "n", responseDesc: "Success")!
                     
                 }
+                
             }
             
         } else {
             actionResponse = ActionResponse(responseCode: "Y", responseDesc: "Issue with opening database")!
-            print("Error: \(propertyDB.lastErrorMessage())")
+            print("Error: \(propertyDB1.lastErrorMessage())")
         }
         
         return actionResponse!
@@ -141,16 +145,17 @@ class PropertyDataManager  {
         
     }
     
-    func loadPropData(propertyDB: FMDatabase) -> [Property] {
+    func loadPropData(propertyDB1: FMDatabase) -> [Property] {
         
         var propertyArray: [Property] = [Property]()
         
-        if propertyDB.open() {
+        if propertyDB1.open() {
             
-            let query_lab_test = "SELECT * FROM PROPERTY"
+            let query_lab_test = "SELECT * FROM PROPERTYSTORE"
             
-            let results_lab_test:FMResultSet? = propertyDB
+            let results_lab_test:FMResultSet? = propertyDB1
                 .executeQuery(query_lab_test, withArgumentsInArray: nil)
+            
             
             while results_lab_test?.next() == true {
                 let propID = results_lab_test?.longForColumn("ID")
@@ -201,20 +206,23 @@ class PropertyDataManager  {
     }
     
     
-    func deletePropData(propertyDB: FMDatabase, property: Property) -> ActionResponse
+    func deletePropData(propertyDB1: FMDatabase, property: Property) -> ActionResponse
     {
         var actionResponse = ActionResponse(responseCode: "n", responseDesc: "")
-        if propertyDB.open() {
+        if propertyDB1.open() {
             
-            propertyDB.executeUpdate("DELETE FROM PROPERTY WHERE ID = ?", withArgumentsInArray: [property.propID])
+            let path1 = getpath1(propertyDB1, property: property)
+            let path2 = getpath2(propertyDB1, property: property)
             
-            propertyDB.close()
+            propertyDB1.executeUpdate("DELETE FROM PROPERTYSTORE WHERE ID = ?", withArgumentsInArray: [property.propID])
             
-            let imagepath1 = fileInDocumentsDirectory(String(property.propID) + ".png")
-            deleteImage(imagepath1)
+            propertyDB1.close()
             
-            let imagepath2 = fileInDocumentsDirectory(String(property.propID) + "R" + ".png")
-            deleteImage(imagepath2)
+ //           let imagepath1 = fileInDocumentsDirectory(String(property.propID) + ".png")
+            deleteImage(path1)
+            
+//            let imagepath2 = fileInDocumentsDirectory(String(property.propID) + "R" + ".png")
+            deleteImage(path2)
             
         } else {
             actionResponse = ActionResponse(responseCode: "Y", responseDesc: "Property is not deleted")!
@@ -222,18 +230,19 @@ class PropertyDataManager  {
         return actionResponse!
     }
     
-    func updatePropData(propertyDB: FMDatabase, property: Property) -> ActionResponse {
+    func updatePropData(propertyDB1: FMDatabase, property: Property) -> ActionResponse {
         
         var actionResponse = ActionResponse(responseCode: "n", responseDesc: "")
         
-        if propertyDB.open() {
+        
+ //       if propertyDB1.open() {
             
             var filePath1: String
             var filePath2: String
             let propPhoto: UIImage = property.propPhoto!
             let receiptPhoto: UIImage = property.receiptPhoto!
             
-            let propName = checkIfPropExists(propertyDB, property: property)
+            let propName = checkIfPropExists(propertyDB1, property: property)
             
             if (propName == "name") {
                 actionResponse = ActionResponse(responseCode: "Y", responseDesc: "This is default property. Add new property")!
@@ -255,37 +264,43 @@ class PropertyDataManager  {
 
                 }
                 */
-                filePath1 = fileInDocumentsDirectory(String(property.propID) + ".png")
+                
+                filePath1 = fileInDocumentsDirectory("I" + getDateStamp() + ".png")
+                
                 saveImage(propPhoto, path: filePath1)
-                filePath2 = fileInDocumentsDirectory(String(property.propID) + "R" + ".png")
+                filePath2 = fileInDocumentsDirectory("I" + getDateStamp() + "R" + ".png")
                 saveImage(receiptPhoto, path: filePath2)
+                
+                if propertyDB1.open() {
 
-                let result = propertyDB.executeUpdate("UPDATE PROPERTY SET NAME = ?, PHOTOPATH1 = ?, PHOTOPATH2 = ?, DESC = ? WHERE ID = ?", withArgumentsInArray: [property.propName!, filePath1, filePath2, property.propDesc!, property.propID])
+                let result = propertyDB1.executeUpdate("UPDATE PROPERTYSTORE SET NAME = ?, PHOTOPATH1 = ?, PHOTOPATH2 = ?, DESC = ? WHERE ID = ?", withArgumentsInArray: [property.propName!, filePath1, filePath2, property.propDesc!, property.propID])
+                
+                
                 
                 if !result {
                     actionResponse = ActionResponse(responseCode: "Y", responseDesc: "Property not saved successfully")!
-                    print("Error: \(propertyDB.lastErrorMessage())")
+                    print("Error: \(propertyDB1.lastErrorMessage())")
                 } else {
                     
                     actionResponse = ActionResponse(responseCode: "n", responseDesc: "Success")!
                     
                 }
-                
-                
+                }
             }
-        }
+    //    }
         
         return actionResponse!
     }
     
     
-    func checkIfPropExists(propertyDB: FMDatabase, property: Property) -> String {
+    func checkIfPropExists(propertyDB1: FMDatabase, property: Property) -> String {
         
         var name: String?
         
-        if propertyDB.open() {
+        if propertyDB1.open() {
             
-            let results_lab_test:FMResultSet? = propertyDB.executeQuery("SELECT * FROM PROPERTY WHERE ID = ?", withArgumentsInArray: [property.propID])
+            let results_lab_test:FMResultSet? = propertyDB1.executeQuery("SELECT * FROM PROPERTYSTORE WHERE ID = ?", withArgumentsInArray: [property.propID])
+            
             
             while results_lab_test?.next() == true {
                 
@@ -303,7 +318,51 @@ class PropertyDataManager  {
         
     }
     
+    func getpath1(propertyDB1: FMDatabase, property: Property) -> String {
+        
+        var path1: String?
+        
+        if propertyDB1.open() {
+            
+            let results_lab_test:FMResultSet? = propertyDB1.executeQuery("SELECT PHOTOPATH1 FROM PROPERTYSTORE WHERE ID = ?", withArgumentsInArray: [property.propID])
+            
+            
+            while results_lab_test?.next() == true {
+                
+                path1 = results_lab_test?.stringForColumn("PHOTOPATH1")
+                
+            }
+            
+            
+        }
+        
+        return path1!
+        
+    }
+
+    func getpath2(propertyDB1: FMDatabase, property: Property) -> String {
+        
+        var path2: String?
+        
+        if propertyDB1.open() {
+            
+            let results_lab_test:FMResultSet? = propertyDB1.executeQuery("SELECT PHOTOPATH2 FROM PROPERTYSTORE WHERE ID = ?", withArgumentsInArray: [property.propID])
+            
+            
+            while results_lab_test?.next() == true {
+                
+                path2 = results_lab_test?.stringForColumn("PHOTOPATH2")
+                
+            }
+            
+            
+        }
+        
+        return path2!
+        
+    }
     
+
     func updateImage(filePath: String, photo: UIImage) {
         
         
@@ -351,14 +410,47 @@ class PropertyDataManager  {
         
     }
     
+        
+    func StoreLocationData (propertyDB1: FMDatabase, loc: PurchaseLocation) -> ActionResponse {
+        
+        var actionResponse: ActionResponse? = ActionResponse(responseCode: "n", responseDesc: "")
+        
+        if LocationExists(propertyDB1, loc: loc) {
+            
+            actionResponse = updateLocationData(propertyDB1, loc: loc)
+        }else{
+            actionResponse =  SaveLocationData(propertyDB1, loc: loc)
+        }
+        
+        return actionResponse!
+    }
     
-    func SaveLocationData(propertyDB: FMDatabase, loc: PurchaseLocation) -> ActionResponse {
+    func LocationExists(propertyDB1: FMDatabase, loc: PurchaseLocation) -> Bool {
+    
+        
+        if propertyDB1.open() {
+            
+            let results_lab_test:FMResultSet? = propertyDB1.executeQuery("SELECT * FROM PURCHASELOCATION WHERE PROPID = ?", withArgumentsInArray: [loc.pID!])
+            
+            while results_lab_test?.next() == true {
+                
+                return true
+                
+            }
+            
+            
+        }
+        return false
+    }
+
+    
+    func SaveLocationData(propertyDB1: FMDatabase, loc: PurchaseLocation) -> ActionResponse {
         
         //        let mealDB = FMDatabase(path: databasePath.path!)
         
         var actionResponse = ActionResponse(responseCode: "n", responseDesc: "")
         
-        if propertyDB.open() {
+        if propertyDB1.open() {
             
             let lID = loc.lID
             let pID = loc.pID
@@ -370,11 +462,11 @@ class PropertyDataManager  {
             
             let insertSQL1 = "INSERT INTO PURCHASELOCATION (propid, street, city, state, zip, date ) VALUES (?, ?, ?, ?, ?, ?)"
             
-            let result = propertyDB.executeUpdate(insertSQL1, withArgumentsInArray: [loc.pID!, loc.lAddress!, loc.lCity!, loc.lState!, loc.lZip!, loc.lDate!])
+            let result = propertyDB1.executeUpdate(insertSQL1, withArgumentsInArray: [loc.pID!, loc.lAddress!, loc.lCity!, loc.lState!, loc.lZip!, loc.lDate!])
             
             if !result {
                 actionResponse = ActionResponse(responseCode: "Y", responseDesc: "Location data not saved successfully")!
-                print("Error: \(propertyDB.lastErrorMessage())")
+                print("Error: \(propertyDB1.lastErrorMessage())")
             } else {
                 
                 actionResponse = ActionResponse(responseCode: "n", responseDesc: "Success")!
@@ -383,7 +475,7 @@ class PropertyDataManager  {
             
         } else {
             actionResponse = ActionResponse(responseCode: "Y", responseDesc: "Issue with opening database")!
-            print("Error: \(propertyDB.lastErrorMessage())")
+            print("Error: \(propertyDB1.lastErrorMessage())")
         }
         
         return actionResponse!
@@ -391,13 +483,13 @@ class PropertyDataManager  {
     }
     
     
-    func loadLocationData(propertyDB: FMDatabase, pID: Int) -> PurchaseLocation {
+    func loadLocationData(propertyDB1: FMDatabase, pID: Int) -> PurchaseLocation {
         
         var loc: PurchaseLocation = PurchaseLocation(lID: 1, pID: pID, lAddress: "Not found", lCity: "Not found", lState: "Not found", lZip: "Not found", lDate: "Not found")!
         
-        if propertyDB.open() {
+        if propertyDB1.open() {
             
-            let results_lab_test:FMResultSet? = propertyDB.executeQuery("SELECT * FROM PURCHASELOCATION WHERE PROPID = ?", withArgumentsInArray: [pID])
+            let results_lab_test:FMResultSet? = propertyDB1.executeQuery("SELECT * FROM PURCHASELOCATION WHERE PROPID = ?", withArgumentsInArray: [pID])
             
             while results_lab_test?.next() == true {
                 
@@ -417,14 +509,14 @@ class PropertyDataManager  {
         
     }
     
-    func deleteLocationData(propertyDB: FMDatabase, pID: Int) -> ActionResponse
+    func deleteLocationData(propertyDB1: FMDatabase, pID: Int) -> ActionResponse
     {
         var actionResponse = ActionResponse(responseCode: "n", responseDesc: "")
-        if propertyDB.open() {
+        if propertyDB1.open() {
             
-            propertyDB.executeUpdate("DELETE FROM PURCHASELOCATION WHERE PROPID = ?", withArgumentsInArray: [pID])
+            propertyDB1.executeUpdate("DELETE FROM PURCHASELOCATION WHERE PROPID = ?", withArgumentsInArray: [pID])
             
-            propertyDB.close()
+            propertyDB1.close()
             
         } else {
             actionResponse = ActionResponse(responseCode: "Y", responseDesc: "Location is not deleted")!
@@ -432,36 +524,35 @@ class PropertyDataManager  {
         return actionResponse!
     }
     
-    func updateLocationData(propertyDB: FMDatabase, loc: PurchaseLocation) -> ActionResponse {
+    func updateLocationData(propertyDB1: FMDatabase, loc: PurchaseLocation) -> ActionResponse {
         
         var actionResponse = ActionResponse(responseCode: "n", responseDesc: "")
         
-        if propertyDB.open() {
+        if propertyDB1.open() {
             
-            let result = propertyDB.executeUpdate("UPDATE PURCHASELOCATION SET STREET = ?, CITY = ?, STATE = ?, ZIP = ? WHERE PROPID = ?", withArgumentsInArray: [loc.lAddress!, loc.lCity!, loc.lState!, loc.lZip!, loc.pID!])
+            let result = propertyDB1.executeUpdate("UPDATE PURCHASELOCATION SET STREET = ?, CITY = ?, STATE = ?, ZIP = ?, DATE = ? WHERE PROPID = ?", withArgumentsInArray: [loc.lAddress!, loc.lCity!, loc.lState!, loc.lZip!, loc.lDate!, loc.pID!])
             
             if !result {
                 actionResponse = ActionResponse(responseCode: "Y", responseDesc: "Location not saved successfully")!
-                print("Error: \(propertyDB.lastErrorMessage())")
+                print("Error: \(propertyDB1.lastErrorMessage())")
             } else {
                 
                 actionResponse = ActionResponse(responseCode: "n", responseDesc: "Success")!
                 
             }
             
-            
         }
         
         return actionResponse!
     }
     
-    func justsavedPropID(propertyDB: FMDatabase) -> Int {
+    func getJustSavedPropID(propertyDB1: FMDatabase) -> Int {
         
-        var pID: Int = 1
+        var pID: Int = 0
         
-        if propertyDB.open() {
+        if propertyDB1.open() {
             
-            let results_lab_test:FMResultSet? = propertyDB.executeQuery("SELECT * FROM PROPERTY ORDER BY ID DESC LIMIT 1", withArgumentsInArray: nil)
+            let results_lab_test:FMResultSet? = propertyDB1.executeQuery("SELECT * FROM PROPERTYSTORE ORDER BY ID DESC LIMIT 1", withArgumentsInArray: nil)
             
             while results_lab_test?.next() == true {
                 
@@ -472,6 +563,26 @@ class PropertyDataManager  {
         
         
         return pID
+    }
+    
+    func getDateStamp() -> String {
+        
+        //get event date and time
+        let date = NSDate()
+        let calendar = NSCalendar.currentCalendar()
+        //           let components = calendar.components(.CalendarUnitHour | .CalendarUnitMinute | .CalendarUnitMonth | .CalendarUnitYear | .CalendarUnitDay, fromDate: date)
+        let components = calendar.components([.Hour, .Minute, .Month, .Year, .Day], fromDate: date)
+        let hour = components.hour
+        let minutes = components.minute
+        let seconds = components.second
+        let month = components.month
+        let year = components.year
+        let day = components.day
+        
+        let datestamp = String(month) + ":" + String(day) + ":" + String(year) + ":" + String(hour) + ":" + String(minutes) + ":" + String(seconds)
+        
+        return datestamp
+
     }
     
     

@@ -26,6 +26,7 @@
 		A54568091D3320C400F44BF0 /* ActionResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A54568081D3320C400F44BF0 /* ActionResponse.swift */; };
 		A597E0AB1D4C380600F2F9E9 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A597E0AA1D4C380600F2F9E9 /* CameraViewController.swift */; };
 		A597E0AF1D4C7E9D00F2F9E9 /* CustomNavigationAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A597E0AE1D4C7E9D00F2F9E9 /* CustomNavigationAnimationController.swift */; };
+		A597E0B11D4D843900F2F9E9 /* PropertyAndLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A597E0B01D4D843900F2F9E9 /* PropertyAndLocation.swift */; };
 		A5BE0E561D3DA94B00848517 /* PropertyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5BE0E541D3DA94B00848517 /* PropertyTableViewCell.swift */; };
 		A5BE0E591D3DBEBF00848517 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5BE0E581D3DBEBF00848517 /* Reachability.swift */; };
 		A5E1CB231D4997660042B0CC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A5E1CB211D4997660042B0CC /* Main.storyboard */; };
@@ -75,6 +76,7 @@
 		A54568081D3320C400F44BF0 /* ActionResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ActionResponse.swift; path = ../../FoodCritic/FoodCritic/ActionResponse.swift; sourceTree = "<group>"; };
 		A597E0AA1D4C380600F2F9E9 /* CameraViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 		A597E0AE1D4C7E9D00F2F9E9 /* CustomNavigationAnimationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomNavigationAnimationController.swift; sourceTree = "<group>"; };
+		A597E0B01D4D843900F2F9E9 /* PropertyAndLocation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PropertyAndLocation.swift; sourceTree = "<group>"; };
 		A5BE0E541D3DA94B00848517 /* PropertyTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PropertyTableViewCell.swift; sourceTree = "<group>"; };
 		A5BE0E581D3DBEBF00848517 /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		A5E1CB221D4997660042B0CC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -146,6 +148,7 @@
 				A54567FE1D331DE800F44BF0 /* FMDatabasePool.h */,
 				A54567FF1D331DE800F44BF0 /* FMDatabasePool.m */,
 				A54567CF1D2CA86400F44BF0 /* ViewController.swift */,
+				A597E0B01D4D843900F2F9E9 /* PropertyAndLocation.swift */,
 				A54567EF1D32BC0400F44BF0 /* PurchaseLocation.swift */,
 				A54567ED1D32A97500F44BF0 /* Property.swift */,
 				A5BE0E541D3DA94B00848517 /* PropertyTableViewCell.swift */,
@@ -281,6 +284,7 @@
 				A54568021D331DE800F44BF0 /* FMDatabaseQueue.m in Sources */,
 				A54568041D331DE800F44BF0 /* FMDatabasePool.m in Sources */,
 				A54567D01D2CA86400F44BF0 /* ViewController.swift in Sources */,
+				A597E0B11D4D843900F2F9E9 /* PropertyAndLocation.swift in Sources */,
 				A54568001D331DE800F44BF0 /* FMDatabase.m in Sources */,
 				A5E1CB251D49A9FA0042B0CC /* DetailImageViewController.swift in Sources */,
 				A54568091D3320C400F44BF0 /* ActionResponse.swift in Sources */,

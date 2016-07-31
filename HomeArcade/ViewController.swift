@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController, UITableViewDelegate, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIPickerViewDataSource,UIPickerViewDelegate, UITextViewDelegate , UIViewControllerTransitioningDelegate {
+class ViewController: UIViewController, UITableViewDelegate, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIPickerViewDataSource, UIPickerViewDelegate, UITextViewDelegate , UIViewControllerTransitioningDelegate {
 
     @IBOutlet weak var PropertyName: UITextField!
     
@@ -36,7 +36,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITextFieldDelegate
     
     @IBOutlet weak var CancelProp: UIBarButtonItem!
     
-    var pickerView = UIPickerView()
+    var pickerView: UIPickerView = UIPickerView()
     
     @IBOutlet var PropTapGR: UITapGestureRecognizer!
     
@@ -51,7 +51,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITextFieldDelegate
     @IBOutlet var ReceiptImageCaptureGR: UILongPressGestureRecognizer!
     
     var property: Property?
+    
     var location: PurchaseLocation?
+    
+    var comboObject: PropertyAndLocation?
+    
     var imageInd: Int = 0
     var imageDetailInd = 0
     var imageCaptureInd = 0
@@ -91,6 +95,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITextFieldDelegate
         pickerView.delegate = self
         
         PurchaseState.inputView = pickerView
+        pickerView.hidden = true;
+        PurchaseState.text = pickOption[0]
         
         // Set up views if editing an existing Meal.
         ItemID.hidden = true
@@ -105,8 +111,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITextFieldDelegate
             
             let pdm: PropertyDataManager = PropertyDataManager()
             let pID = property.propID
-            let propertyDB = pdm.PropertyDatabaseSetUp()
-            let loc: PurchaseLocation = pdm.loadLocationData(propertyDB, pID: pID)
+            let propertyDB1 = pdm.PropertyDatabaseSetUp()
+            let loc: PurchaseLocation = pdm.loadLocationData(propertyDB1, pID: pID)
             
             PurchaseStreet.text = loc.lAddress
             PurchaseCity.text = loc.lCity
@@ -170,6 +176,18 @@ class ViewController: UIViewController, UITableViewDelegate, UITextFieldDelegate
         // Dispose of any resources that can be recreated.
     }
     
+    func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
+        
+        
+        if textField == PurchaseDateTime {
+            PurchaseDateTime.resignFirstResponder()
+            
+        }
+        
+        pickerView.hidden = false
+        return true
+    }
+    
     func textFieldDidBeginEditing(textField: UITextField) {
         //       doneButton.userInteractionEnabled = true
         // Disable the Save button while editing.
@@ -225,7 +243,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITextFieldDelegate
     }
     
     
-    
+    /*
     
     @IBAction func performStateSelection(sender: UITextField) {
         let datePickerView:UIDatePicker = UIDatePicker()
@@ -245,11 +263,36 @@ class ViewController: UIViewController, UITableViewDelegate, UITextFieldDelegate
         
         dateFormatter.timeStyle = NSDateFormatterStyle.NoStyle
         
-        PurchaseState.text = dateFormatter.stringFromDate(sender.date)
+        PurchaseDateTime.text = dateFormatter.stringFromDate(sender.date)
+        
+    } */
+    
+    
+    
+    @IBAction func pickDate(sender: UITextField) {
+        
+        let datePickerView:UIDatePicker = UIDatePicker()
+        
+        datePickerView.datePickerMode = UIDatePickerMode.Date
+        
+        sender.inputView = datePickerView
+        
+        datePickerView.addTarget(self, action: #selector(ViewController.datePickerValueChanged), forControlEvents: UIControlEvents.ValueChanged)
+    }
+        
+    func datePickerValueChanged(sender:UIDatePicker) {
+        
+        let dateFormatter = NSDateFormatter()
+        
+        dateFormatter.dateStyle = NSDateFormatterStyle.MediumStyle
+        
+        dateFormatter.timeStyle = NSDateFormatterStyle.NoStyle
+        
+        PurchaseDateTime.text = dateFormatter.stringFromDate(sender.date)
+        PurchaseDateTime.resignFirstResponder()
         
     }
-    
-    
+        
     
     @IBAction func CancelDetailView(sender: AnyObject) {
         
@@ -263,8 +306,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITextFieldDelegate
             navigationController!.popViewControllerAnimated(true)
         }
     }
-    
-    
     
     
     
@@ -390,22 +431,66 @@ class ViewController: UIViewController, UITableViewDelegate, UITextFieldDelegate
             
             // Set the meal to be passed to MealTableViewController after the unwind segue.
             property = Property(propID: PropID, propName: PropName!, propPhoto: PropPhoto, receiptPhoto: ReceiptPhoto, propDesc: PropDesc)
+        
             
             //Save Location object
-            if (PurchaseStreet.text  != nil) && (PurchaseStreet.text != "") {
+            
+   //         if (PurchaseStreet.text  != nil) && (PurchaseStreet.text != "") {
             let lcID = 1
             let prID = PropID
+            
+            let lcAddress: String?
+            let lcCity: String?
+            let lcState: String?
+            let lcZip: String?
+            let lcDate: String?
+            
+            if (PurchaseStreet.text  != nil) && (PurchaseStreet.text != "") {
+                lcAddress = PurchaseStreet.text
+            }else{
+                lcAddress = "Not found"
+            }
+                
+            if (PurchaseCity.text  != nil) && (PurchaseCity.text != "") {
+                lcCity = PurchaseCity.text
+            }else{
+                lcCity = "Not found"
+            }
+
+            if (PurchaseState.text  != nil) && (PurchaseState.text != "") {
+                lcState = PurchaseState.text
+            }else{
+                lcState = "Not found"
+            }
+                
+            if (PurchaseZip.text  != nil) && (PurchaseZip.text != "") {
+                lcZip = PurchaseZip.text
+            }else{
+                lcZip = "Not found"
+            }
+                
+            if (PurchaseDateTime.text  != nil) && (PurchaseDateTime.text != "") {
+                lcDate = PurchaseDateTime.text
+            }else{
+                lcDate = "Not found"
+            }
+
+/*
             let lcAddress = (PurchaseStreet.text != nil) ? PurchaseStreet.text : "Not found"
             let lcCity = (PurchaseCity.text != nil) ? PurchaseCity.text : "Not found"
             let lcState = (PurchaseState.text != nil) ? PurchaseState.text : "Not found"
             let lcZip = (PurchaseZip.text != nil) ? PurchaseZip.text : "Not found"
             let lcDate = (PurchaseDateTime.text != nil) ? PurchaseDateTime.text : "Not found"
-            
-            let location = PurchaseLocation(lID: lcID, pID: prID, lAddress: lcAddress, lCity: lcCity, lState: lcState, lZip: lcZip, lDate: lcDate!)
+ */
+            location = PurchaseLocation(lID: lcID, pID: prID, lAddress: lcAddress, lCity: lcCity, lState: lcState, lZip: lcZip, lDate: lcDate!)
+                
+                comboObject = PropertyAndLocation(property: property!, location: location!)!
+                
+                /*
             
             let pdm: PropertyDataManager = PropertyDataManager()
-            let propertyDB = pdm.PropertyDatabaseSetUp()
-            let response: ActionResponse = pdm.updateLocationData(propertyDB, loc: location!)
+            let propertyDB1 = pdm.PropertyDatabaseSetUp()
+            let response: ActionResponse = pdm.StoreLocationData(propertyDB1, loc: location!)
             
             if (response.responseCode) == "Y" {
                 
@@ -414,8 +499,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITextFieldDelegate
                 let defaultAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
                 alertController.addAction(defaultAction)
                 presentViewController(alertController, animated: true, completion: nil)
-            }
-            }
+            }  */
+    //        }
             
         }else{
             if segue.identifier! == "imageDetailSegue" {
@@ -538,6 +623,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITextFieldDelegate
     //Update textfield text when row is selected
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         PurchaseState.text = pickOption[row]
+        pickerView.hidden = true;
+        PurchaseZip.becomeFirstResponder()
+        PurchaseZip.resignFirstResponder()
     }
 
 
