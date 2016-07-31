@@ -15,6 +15,9 @@ class PropertyTableViewCell: UITableViewCell {
 
     @IBOutlet weak var PropertyName: UILabel!
     
+    @IBOutlet weak var PropertyCategory: UILabel!
+    
+    @IBOutlet weak var PropertyCost: UILabel!
     
     @IBOutlet weak var PropertyID: UILabel!
     

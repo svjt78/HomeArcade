@@ -20,7 +20,7 @@ class PropertyTableViewController: UITableViewController, CLLocationManagerDeleg
     let photo1 = UIImage(named: "noimage")!
     let photo2 = UIImage(named: "noimage")!
     
-    var property = Property(propID: 1, propName: "Unknown", propPhoto: (photo: UIImage(named: "noimage")!), receiptPhoto: (photo: UIImage(named: "noimage")!), propDesc: "Unknown")!
+    var property = Property(propID: 1, propName: "Unknown", propPhoto: (photo: UIImage(named: "noimage")!), receiptPhoto: (photo: UIImage(named: "noimage")!), propCategory: "Unknown", propCost: "Unknown",  propDesc: "Unknown")!
     
     var currentSelection: Int = 0
     
@@ -108,6 +108,9 @@ class PropertyTableViewController: UITableViewController, CLLocationManagerDeleg
      cell.PropertyID.hidden = true
      cell.PropertyName.text = property.propName
      cell.PropertyPhoto.image = property.propPhoto
+     cell.PropertyCategory.text = property.propCategory
+     cell.PropertyCost.text =  property.propCost
+        
      
      return cell
     }
@@ -360,7 +363,7 @@ class PropertyTableViewController: UITableViewController, CLLocationManagerDeleg
     }
     
     
-    func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [CLLocation]) {
+    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
         //stop updating location to save battery life
         locationManager.stopUpdatingLocation()

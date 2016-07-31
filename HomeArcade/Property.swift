@@ -15,6 +15,8 @@ class Property: NSObject, NSCoding {
     var propName: String?
     var propPhoto: UIImage?
     var receiptPhoto: UIImage?
+    var propCategory: String?
+    var propCost: String?
     var propDesc: String?
     
     struct PropertyKey {
@@ -22,6 +24,8 @@ class Property: NSObject, NSCoding {
         static let nameKey = "name"
         static let photoKey1 = "photo1"
         static let photoKey2 = "photo2"
+        static let categoryKey = "category"
+        static let costKey = "cost"
         static let descKey = "desc"
     }
     
@@ -37,6 +41,8 @@ class Property: NSObject, NSCoding {
         aCoder.encodeObject(propName, forKey: PropertyKey.nameKey)
         aCoder.encodeObject(propPhoto, forKey: PropertyKey.photoKey1)
         aCoder.encodeObject(receiptPhoto, forKey: PropertyKey.photoKey2)
+        aCoder.encodeObject(propCategory, forKey: PropertyKey.categoryKey)
+        aCoder.encodeObject(propCost, forKey: PropertyKey.costKey)
         aCoder.encodeObject(propDesc, forKey: PropertyKey.descKey)
     }
     
@@ -53,21 +59,27 @@ class Property: NSObject, NSCoding {
         
         let receiptPhoto = aDecoder.decodeObjectForKey(PropertyKey.photoKey2) as? UIImage
         
+        let propCategory = aDecoder.decodeObjectForKey(PropertyKey.categoryKey) as? String
+        
+        let propCost = aDecoder.decodeObjectForKey(PropertyKey.costKey) as? String
+        
         let propDesc = aDecoder.decodeObjectForKey(PropertyKey.descKey) as? String
         
         // Must call designated initializer.
-        self.init(propID: propID, propName: propName, propPhoto: propPhoto, receiptPhoto: receiptPhoto, propDesc: propDesc!)
+        self.init(propID: propID, propName: propName, propPhoto: propPhoto, receiptPhoto: receiptPhoto, propCategory: propCategory!, propCost: propCost, propDesc: propDesc!)
     }
     
     
     // MARK: Initialization
     
-    init?(propID: Int, propName: String, propPhoto: UIImage?, receiptPhoto: UIImage?, propDesc: String) {
+    init?(propID: Int, propName: String, propPhoto: UIImage?, receiptPhoto: UIImage?, propCategory: String?, propCost: String?, propDesc: String) {
         // Initialize stored properties.
         self.propID = propID
         self.propName = propName
         self.propPhoto = propPhoto
         self.receiptPhoto = receiptPhoto
+        self.propCategory = propCategory
+        self.propCost = propCost
         self.propDesc = propDesc
         
         super.init()

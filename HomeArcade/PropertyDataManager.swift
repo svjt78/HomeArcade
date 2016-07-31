@@ -31,7 +31,7 @@ class PropertyDataManager  {
             
             if propertyDB1!.open() {
                 
-                let sql_stmt = "CREATE TABLE IF NOT EXISTS PROPERTYSTORE (ID INTEGER PRIMARY KEY AUTOINCREMENT, NAME TEXT, PHOTOPATH1 TEXT, PHOTOPATH2 TEXT, DESC TEXT)"
+                let sql_stmt = "CREATE TABLE IF NOT EXISTS PROPERTYTABLE (ID INTEGER PRIMARY KEY AUTOINCREMENT, NAME TEXT, PHOTOPATH1 TEXT, PHOTOPATH2 TEXT, CATEGORY TEXT, COST TEXT, DESC TEXT)"
                 if !propertyDB1!.executeStatements(sql_stmt) {
                     print("Error: \(propertyDB1!.lastErrorMessage())")
                 }
@@ -95,10 +95,10 @@ class PropertyDataManager  {
             
             }else{
                 
-                let insertSQL = "INSERT INTO PROPERTYSTORE (name, photopath1, photopath2, desc) VALUES (?, ?, ?, ?)"
+                let insertSQL = "INSERT INTO PROPERTYTABLE (name, photopath1, photopath2, category, cost, desc) VALUES (?, ?, ?, ?, ?, ?)"
                 
                 
-                let result = propertyDB1.executeUpdate(insertSQL, withArgumentsInArray: [property.propName!, imagePath1, imagePath2, property.propDesc!])
+                let result = propertyDB1.executeUpdate(insertSQL, withArgumentsInArray: [property.propName!, imagePath1, imagePath2, property.propCategory!, property.propCost!, property.propDesc!])
                 
                 
                 if !result {
@@ -151,7 +151,7 @@ class PropertyDataManager  {
         
         if propertyDB1.open() {
             
-            let query_lab_test = "SELECT * FROM PROPERTYSTORE"
+            let query_lab_test = "SELECT * FROM PROPERTYTABLE"
             
             let results_lab_test:FMResultSet? = propertyDB1
                 .executeQuery(query_lab_test, withArgumentsInArray: nil)
@@ -162,12 +162,14 @@ class PropertyDataManager  {
                 let propName = results_lab_test?.stringForColumn("NAME")
                 let image1 = results_lab_test?.stringForColumn("PHOTOPATH1")
                 let image2 = results_lab_test?.stringForColumn("PHOTOPATH2")
+                var propCategory = results_lab_test?.stringForColumn("CATEGORY")
+                var propCost = results_lab_test?.stringForColumn("COST")
                 var propDesc = results_lab_test?.stringForColumn("DESC")
                 
                 let propPhoto: UIImage? = loadImage(image1!)!
                 let receiptPhoto: UIImage? = loadImage(image2!)!
                 
-                let property = Property(propID: propID!, propName: propName!, propPhoto: propPhoto!, receiptPhoto :receiptPhoto!, propDesc: propDesc!)
+                let property = Property(propID: propID!, propName: propName!, propPhoto: propPhoto!, receiptPhoto :receiptPhoto!, propCategory: propCategory, propCost: propCost, propDesc: propDesc!)
                 propertyArray.append(property!)
                 
                 
@@ -176,7 +178,7 @@ class PropertyDataManager  {
                 let propPhoto = UIImage(named: "noimage")!
                 let receiptPhoto = UIImage(named: "noimage")!
                 
-                let property = Property(propID: 1, propName: "Add new property", propPhoto: propPhoto, receiptPhoto: receiptPhoto, propDesc: "Add description")!
+                let property = Property(propID: 1, propName: "Add new property", propPhoto: propPhoto, receiptPhoto: receiptPhoto, propCategory: "None", propCost: "$0.00",  propDesc: "Add description")!
                 
                 propertyArray.append(property)
                 
@@ -214,7 +216,7 @@ class PropertyDataManager  {
             let path1 = getpath1(propertyDB1, property: property)
             let path2 = getpath2(propertyDB1, property: property)
             
-            propertyDB1.executeUpdate("DELETE FROM PROPERTYSTORE WHERE ID = ?", withArgumentsInArray: [property.propID])
+            propertyDB1.executeUpdate("DELETE FROM PROPERTYTABLE WHERE ID = ?", withArgumentsInArray: [property.propID])
             
             propertyDB1.close()
             
@@ -265,15 +267,15 @@ class PropertyDataManager  {
                 }
                 */
                 
-                filePath1 = fileInDocumentsDirectory("I" + getDateStamp() + ".png")
+                filePath1 = fileInDocumentsDirectory("I" + String(property.propID) + ".png")
                 
                 saveImage(propPhoto, path: filePath1)
-                filePath2 = fileInDocumentsDirectory("I" + getDateStamp() + "R" + ".png")
+                filePath2 = fileInDocumentsDirectory("I" + String(property.propID) + "R" + ".png")
                 saveImage(receiptPhoto, path: filePath2)
                 
                 if propertyDB1.open() {
 
-                let result = propertyDB1.executeUpdate("UPDATE PROPERTYSTORE SET NAME = ?, PHOTOPATH1 = ?, PHOTOPATH2 = ?, DESC = ? WHERE ID = ?", withArgumentsInArray: [property.propName!, filePath1, filePath2, property.propDesc!, property.propID])
+                let result = propertyDB1.executeUpdate("UPDATE PROPERTYTABLE SET NAME = ?, PHOTOPATH1 = ?, PHOTOPATH2 = ?, CATEGORY = ?, COST = ?, DESC = ? WHERE ID = ?", withArgumentsInArray: [property.propName!, filePath1, filePath2, property.propCategory!, property.propCost!, property.propDesc!, property.propID])
                 
                 
                 
@@ -299,7 +301,7 @@ class PropertyDataManager  {
         
         if propertyDB1.open() {
             
-            let results_lab_test:FMResultSet? = propertyDB1.executeQuery("SELECT * FROM PROPERTYSTORE WHERE ID = ?", withArgumentsInArray: [property.propID])
+            let results_lab_test:FMResultSet? = propertyDB1.executeQuery("SELECT * FROM PROPERTYTABLE WHERE ID = ?", withArgumentsInArray: [property.propID])
             
             
             while results_lab_test?.next() == true {
@@ -324,7 +326,7 @@ class PropertyDataManager  {
         
         if propertyDB1.open() {
             
-            let results_lab_test:FMResultSet? = propertyDB1.executeQuery("SELECT PHOTOPATH1 FROM PROPERTYSTORE WHERE ID = ?", withArgumentsInArray: [property.propID])
+            let results_lab_test:FMResultSet? = propertyDB1.executeQuery("SELECT PHOTOPATH1 FROM PROPERTYTABLE WHERE ID = ?", withArgumentsInArray: [property.propID])
             
             
             while results_lab_test?.next() == true {
@@ -346,7 +348,7 @@ class PropertyDataManager  {
         
         if propertyDB1.open() {
             
-            let results_lab_test:FMResultSet? = propertyDB1.executeQuery("SELECT PHOTOPATH2 FROM PROPERTYSTORE WHERE ID = ?", withArgumentsInArray: [property.propID])
+            let results_lab_test:FMResultSet? = propertyDB1.executeQuery("SELECT PHOTOPATH2 FROM PROPERTYTABLE WHERE ID = ?", withArgumentsInArray: [property.propID])
             
             
             while results_lab_test?.next() == true {
@@ -552,7 +554,7 @@ class PropertyDataManager  {
         
         if propertyDB1.open() {
             
-            let results_lab_test:FMResultSet? = propertyDB1.executeQuery("SELECT * FROM PROPERTYSTORE ORDER BY ID DESC LIMIT 1", withArgumentsInArray: nil)
+            let results_lab_test:FMResultSet? = propertyDB1.executeQuery("SELECT * FROM PROPERTYTABLE ORDER BY ID DESC LIMIT 1", withArgumentsInArray: nil)
             
             while results_lab_test?.next() == true {
                 

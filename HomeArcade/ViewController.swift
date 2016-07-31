@@ -18,7 +18,13 @@ class ViewController: UIViewController, UITableViewDelegate, UITextFieldDelegate
     
     @IBOutlet weak var ReceiptImage: UIImageView!
     
-    @IBOutlet weak var PropertyDesc: UITextView!
+    @IBOutlet weak var PropertyCategory: UITextField!
+    
+    @IBOutlet weak var PropertyCost: UITextField!
+    
+    @IBOutlet weak var PropDescButton: UIButton!
+    
+    @IBOutlet weak var LocationDateLabel: UILabel!
     
     @IBOutlet weak var PurchaseStreet: UITextField!
     
@@ -56,6 +62,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITextFieldDelegate
     
     var comboObject: PropertyAndLocation?
     
+    var PropertyDesc: String?
+    
     var imageInd: Int = 0
     var imageDetailInd = 0
     var imageCaptureInd = 0
@@ -66,7 +74,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITextFieldDelegate
     let customNavigationAnimationController = CustomNavigationAnimationController()
     
     
-    var pickOption = ["one", "two", "three", "seven", "fifteen"]
+    var pickOption = ["Furniture", "Sports equipment", "Electronics", "Computers", "Ornaments", "Home appliances"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -90,13 +98,15 @@ class ViewController: UIViewController, UITableViewDelegate, UITextFieldDelegate
         PurchaseDateTime.delegate = self
         self.navigationController?.delegate = self
         
-        //Setup Pickerview attached to the Purchase State textfield
+        //Setup Pickerview attached to the Category textfield
         
         pickerView.delegate = self
+        pickerView.dataSource = self
+        [pickerView .reloadComponent]
+        PropertyCategory.inputView = pickerView
+ //       pickerView.hidden = true;
+        PropertyCategory.text = pickOption[0]
         
-        PurchaseState.inputView = pickerView
-        pickerView.hidden = true;
-        PurchaseState.text = pickOption[0]
         
         // Set up views if editing an existing Meal.
         ItemID.hidden = true
@@ -106,7 +116,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITextFieldDelegate
             PropertyName.text   = property.propName
             PropertyImage.image = property.propPhoto
             ReceiptImage.image = property.receiptPhoto
-            PropertyDesc.text = property.propDesc
+            PropertyCategory.text = property.propCategory
+            PropertyCost.text = property.propCost!
+ //           PropertyDesc.text = property.propDesc
             
             
             let pdm: PropertyDataManager = PropertyDataManager()
@@ -170,6 +182,20 @@ class ViewController: UIViewController, UITableViewDelegate, UITextFieldDelegate
         
     }
     
+    override func viewWillAppear(animated: Bool) {
+        
+        super.viewWillAppear(animated)
+/*
+        pickerView.delegate = self
+        pickerView.dataSource = self
+        [pickerView .reloadComponent]
+        PropertyCategory.inputView = pickerView
+ //       pickerView.hidden = true;
+        PropertyCategory.text = pickOption[0]
+        */
+    }
+
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -224,6 +250,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITextFieldDelegate
         if textField == PropertyName {
         
             navigationItem.title = textField.text! + string
+   //         property?.propDesc = textField.text
             
             if (string == "") {
                 if let selectedRange = textField.selectedTextRange {
@@ -416,21 +443,27 @@ class ViewController: UIViewController, UITableViewDelegate, UITextFieldDelegate
         if SaveProp === sender {
             
             //Create Property object
+            
+            if (PropertyCost.text == nil) || (PropertyCost.text == "") {
+                PropertyCost.text = "0"
+            }
+            
+            if (PropertyDesc == nil) || (PropertyDesc == "") {
+                PropertyDesc = "No descripton available"
+            }
+            
             let PropID = Int(ItemID.text!)!
             let PropName = PropertyName.text
             let PropPhoto = PropertyImage.image
             let ReceiptPhoto = ReceiptImage.image
-            var PropDesc = PropertyDesc.text ?? ""
+            let PropCategory = PropertyCategory.text
+            let PropCost = PropertyCost.text
+            let PropDesc = PropertyDesc
+        
             
-            let whitespaceSet = NSCharacterSet.whitespaceCharacterSet()
-            if PropertyDesc.text!.stringByTrimmingCharactersInSet(whitespaceSet) == "" {
-                PropDesc = "Description not available"
-            }else{
-                PropDesc = PropertyDesc.text
-            }
-            
-            // Set the meal to be passed to MealTableViewController after the unwind segue.
-            property = Property(propID: PropID, propName: PropName!, propPhoto: PropPhoto, receiptPhoto: ReceiptPhoto, propDesc: PropDesc)
+                
+            // Set the property to be passed to MealTableViewController after the unwind segue.
+            property = Property(propID: PropID, propName: PropName!, propPhoto: PropPhoto, receiptPhoto: ReceiptPhoto, propCategory: PropCategory, propCost: PropCost, propDesc: PropDesc!)
         
             
             //Save Location object
@@ -484,8 +517,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITextFieldDelegate
  */
             location = PurchaseLocation(lID: lcID, pID: prID, lAddress: lcAddress, lCity: lcCity, lState: lcState, lZip: lcZip, lDate: lcDate!)
                 
-                comboObject = PropertyAndLocation(property: property!, location: location!)!
-                
+            comboObject = PropertyAndLocation(property: property!, location: location!)!
+            
+        
+        
                 /*
             
             let pdm: PropertyDataManager = PropertyDataManager()
@@ -502,8 +537,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITextFieldDelegate
             }  */
     //        }
             
-        }else{
-            if segue.identifier! == "imageDetailSegue" {
+        }else if segue.identifier! == "imageDetailSegue" {
+        
                 
                let toViewController = segue.destinationViewController as! DetailImageViewController
                 
@@ -514,7 +549,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITextFieldDelegate
                 
                 let selectedImage: UIImage?
                 
-                // Get the cell that generated this segue.
+                // Get the image that generated this segue.
                 if imageDetailInd == 1 {
                     selectedImage = PropertyImage.image
                 }else{
@@ -524,20 +559,38 @@ class ViewController: UIViewController, UITableViewDelegate, UITextFieldDelegate
                 toViewController.imagePassed = selectedImage
                 
                 
-            }else{
-                if segue.identifier! == "CameraViewSegue" {
-                    
+            }else if segue.identifier! == "CameraViewSegue" {
+        
                     let nav = segue.destinationViewController as! UINavigationController
                     let toViewController = nav.topViewController as! CameraViewController
                     
                     toViewController.transitioningDelegate = self
-
             
+            
+            }else if segue.identifier! == "DescSegue" {
+                let nav = segue.destinationViewController as! UINavigationController
+                let toViewController = nav.topViewController as! DescController
+                
+                toViewController.transitioningDelegate = self
+            
+                if (property?.propDesc != nil) && (property?.propDesc != "") {
+                    toViewController.propertyDesc = property!.propDesc
+                }else{
+                    toViewController.propertyDesc  = ""
                 }
+            
+            
             }
+        
+        
         }
         
+    
+    @IBAction func showDescription(sender: AnyObject) {
+        
+        performSegueWithIdentifier("DescSegue", sender: nil)
     }
+    
     
     @IBAction func unwindToDetailView(sender: UIStoryboardSegue) {
         if let sourceViewController = sender.sourceViewController as? CameraViewController, image1 = sourceViewController.CameraImageView.image {
@@ -547,6 +600,12 @@ class ViewController: UIViewController, UITableViewDelegate, UITextFieldDelegate
             }else{
                 ReceiptImage.image = image1
             }
+        }
+        
+        else if let sourceViewController = sender.sourceViewController as? DescController, desc = sourceViewController.propertyDesc {
+            
+            
+                PropertyDesc = desc
         }
     }
     
@@ -593,16 +652,28 @@ class ViewController: UIViewController, UITableViewDelegate, UITextFieldDelegate
             presentViewController(alertController, animated: true, completion: nil)
             
             return false
+        }else{
+            return true
         }
+        
+        let num = Int(PropertyCost.text!)
+        if num == nil {
+            let alertController = UIAlertController(title: "Alert!", message: "Cost can only be numeric", preferredStyle: .Alert)
             
-        else {
+            let defaultAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
+            alertController.addAction(defaultAction)
+            
+            presentViewController(alertController, animated: true, completion: nil)
+            
+            return false
+            
+        } else {
+        
             return true
         }
         
         
-        // by default, transition
-        return true
-    }
+        }
     
     //Set number of components in picker view
     func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
@@ -622,10 +693,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITextFieldDelegate
     
     //Update textfield text when row is selected
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        PurchaseState.text = pickOption[row]
-        pickerView.hidden = true;
-        PurchaseZip.becomeFirstResponder()
-        PurchaseZip.resignFirstResponder()
+        PropertyCategory.text = pickOption[row]
+ //       pickerView.hidden = true;
+        PropertyCost.becomeFirstResponder()
+        PropertyCost.resignFirstResponder()
     }
 
 
