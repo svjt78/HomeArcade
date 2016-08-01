@@ -587,6 +587,25 @@ class PropertyDataManager  {
 
     }
     
+    func getStoredDesc(propertyDB1: FMDatabase, itemid: Int) -> String {
+        
+        var desc: String?
+        
+        if propertyDB1.open() {
+            
+            let results_lab_test:FMResultSet? = propertyDB1.executeQuery("SELECT * FROM PROPERTYTABLE WHERE ID = ?", withArgumentsInArray: [itemid])
+            
+            
+            while results_lab_test?.next() == true {
+                
+                desc = results_lab_test?.stringForColumn("DESC")
+                
+            }
+
+        }
+        
+        return desc!
+    }
     
 }
 

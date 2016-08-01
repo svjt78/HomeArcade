@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import MessageUI
 
-class ViewController: UIViewController, UITableViewDelegate, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIPickerViewDataSource, UIPickerViewDelegate, UITextViewDelegate , UIViewControllerTransitioningDelegate {
+class ViewController: UIViewController, UITableViewDelegate, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIPickerViewDataSource, UIPickerViewDelegate, UITextViewDelegate , UIViewControllerTransitioningDelegate, MFMailComposeViewControllerDelegate {
 
     @IBOutlet weak var PropertyName: UITextField!
     
@@ -24,8 +25,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITextFieldDelegate
     
     @IBOutlet weak var PropDescButton: UIButton!
     
-    @IBOutlet weak var LocationDateLabel: UILabel!
-    
     @IBOutlet weak var PurchaseStreet: UITextField!
     
     @IBOutlet weak var PurchaseCity: UITextField!
@@ -35,6 +34,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITextFieldDelegate
     @IBOutlet weak var PurchaseZip: UITextField!
     
     @IBOutlet weak var PurchaseDateTime: UITextField!
+    
+    
+    @IBOutlet weak var SendMailButton: UIBarButtonItem!
     
     
     @IBOutlet weak var SaveProp: UIBarButtonItem!
@@ -74,7 +76,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITextFieldDelegate
     let customNavigationAnimationController = CustomNavigationAnimationController()
     
     
-    var pickOption = ["Furniture", "Sports equipment", "Electronics", "Computers", "Ornaments", "Home appliances"]
+    var pickOption = ["Select", "Furniture", "Sports equipment", "Electronics", "Computers", "Ornaments", "Home appliances"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -449,7 +451,14 @@ class ViewController: UIViewController, UITableViewDelegate, UITextFieldDelegate
             }
             
             if (PropertyDesc == nil) || (PropertyDesc == "") {
-                PropertyDesc = "No descripton available"
+                
+                if (property?.propDesc != nil) && (property?.propDesc != "") {
+                    
+                    PropertyDesc = property?.propDesc
+                }else{
+                    PropertyDesc = "No descripton available"
+                }
+                
             }
             
             let PropID = Int(ItemID.text!)!
@@ -706,7 +715,90 @@ func checkValidPropertyName() {
     SaveProp.enabled = !text.isEmpty
 }
 
-
+    
+    @IBAction func SendMail(sender: AnyObject) {
+        let mailComposeViewController = configuredMailComposeViewController()
+        if MFMailComposeViewController.canSendMail() {
+            self.presentViewController(mailComposeViewController, animated: true, completion: nil)
+        } else {
+            self.showSendMailErrorAlert()
+        }
+        
+    }
+    
+    func configuredMailComposeViewController() -> MFMailComposeViewController {
+        let mailComposerVC = MFMailComposeViewController()
+        mailComposerVC.mailComposeDelegate = self // Extremely important to set the --mailComposeDelegate-- property, NOT the --delegate-- property
+        
+        let EmailBodyPart1 = ("Category - " + (PropertyCategory.text)! + ";")
+        let EmailBodyPart2 = ( " Purchase cost - $" + (PropertyCost.text!) + ";")
+        
+        let EmailBodyPart3_0 = " Purchase location - "
+        
+  //      let comma = ", "
+        
+        let laddr = PurchaseStreet.text
+//        [comma,laddr] // "jo smith"
+//            .flatMap{$0}
+//            .joinWithSeparator("")
+        
+        let EmailBodyPart3_1 = laddr! + ", "
+        
+        let lcity = PurchaseCity.text
+//        [comma,lcity] // "jo smith"
+//        .flatMap{$0}
+//            .joinWithSeparator("")
+        
+        let EmailBodyPart3_2 = lcity! + ", "
+        let lstate = PurchaseState.text
+        let EmailBodyPart3_3 = lstate! + ", "
+        let lzip = PurchaseZip.text
+        let EmailBodyPart3_4 = lzip! + ";"
+        
+        let EmailBodyPart3 = EmailBodyPart3_0 + EmailBodyPart3_1 + EmailBodyPart3_2 + EmailBodyPart3_3 + EmailBodyPart3_4
+        
+    /*    let EmailBodyPart3 = ( " Purchase location : " + (location?.lAddress!)! + ", " + (location?.lCity) + ", " + (location?.lState) + ", " + (location?.lZip) + ";") */
+        let EmailBodyPart4 = ( " Purchase date - " + (PurchaseDateTime.text!) + ";")
+        let EmailBodyPart5 = ( " Notes - " + (property?.propDesc!)!)
+        
+        mailComposerVC.setToRecipients(["someone@somewhere.com"])
+        mailComposerVC.setSubject("Loss of personal property - " + (property?.propName)!)
+ //       mailComposerVC.setMessageBody("Category : " + (property?.propCategory)! , isHTML: false)
+  /*      mailComposerVC.setMessageBody(("Category : " + (property?.propCategory)! + ";") +
+            ( " Purchase cost : $" + (property?.propCost!)! + ";") +
+            ( " Purchase location : " + (location?.lAddress!)! + ", " + (location.lCity) + ";") +
+            ( " Notes : " + (property?.propDesc!)!), isHTML: false)
+ 
+        */
+        mailComposerVC.setMessageBody(EmailBodyPart1 + EmailBodyPart2 + EmailBodyPart3 + EmailBodyPart4 + EmailBodyPart5 , isHTML: false)
+        
+  /*      mailComposerVC.addAttachmentData(UIImageJPEGRepresentation(UIImage(contentsOfFile: PropertyImage.image)!, CGFloat(1.0))!, mimeType: "image/jpeg", fileName:  "test.jpeg") */
+        
+        
+        if let image1 = PropertyImage.image {
+            let data = UIImageJPEGRepresentation(image1, 1.0)
+            mailComposerVC.addAttachmentData(data!, mimeType: "image/png", fileName: "image")
+        }
+        
+        if let image2 = ReceiptImage.image {
+            let data = UIImageJPEGRepresentation(image2, 1.0)
+            mailComposerVC.addAttachmentData(data!, mimeType: "image/png", fileName: "image")
+        }
+        
+        
+          return mailComposerVC
+    }
+    
+    func showSendMailErrorAlert() {
+        let sendMailErrorAlert = UIAlertView(title: "Could Not Send Email", message: "Your device could not send e-mail.  Please check e-mail configuration and try again.", delegate: self, cancelButtonTitle: "OK")
+        sendMailErrorAlert.show()
+    }
+    
+    // MARK: MFMailComposeViewControllerDelegate Method
+    func mailComposeController(controller: MFMailComposeViewController!, didFinishWithResult result: MFMailComposeResult, error: NSError!) {
+        controller.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
 }
 
 

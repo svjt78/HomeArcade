@@ -4,12 +4,6 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
-	<key>NSLocationUsageDescription</key>
-	<string>HomeArcade wants to know your current location</string>
-	<key>NSLocationAlwaysUsageDescription</key>
-	<string>HomeArcade wants to know your current location</string>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>HomeArcade wants to know your current location</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -28,6 +22,12 @@
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>HomeArcade wants to know your current location</string>
+	<key>NSLocationUsageDescription</key>
+	<string>HomeArcade wants to know your current location</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>HomeArcade wants to know your current location</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

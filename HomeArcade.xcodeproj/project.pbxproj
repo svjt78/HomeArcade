@@ -30,6 +30,7 @@
 		A597E0B31D4DDA9700F2F9E9 /* DescController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A597E0B21D4DDA9700F2F9E9 /* DescController.swift */; };
 		A5BE0E561D3DA94B00848517 /* PropertyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5BE0E541D3DA94B00848517 /* PropertyTableViewCell.swift */; };
 		A5BE0E591D3DBEBF00848517 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5BE0E581D3DBEBF00848517 /* Reachability.swift */; };
+		A5CB03A21D4EE9A40038F3ED /* SplashScreen.png in Resources */ = {isa = PBXBuildFile; fileRef = A5CB03A11D4EE9A40038F3ED /* SplashScreen.png */; };
 		A5E1CB231D4997660042B0CC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A5E1CB211D4997660042B0CC /* Main.storyboard */; };
 		A5E1CB251D49A9FA0042B0CC /* DetailImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E1CB241D49A9FA0042B0CC /* DetailImageViewController.swift */; };
 		A5E1CB2B1D49B8410042B0CC /* CustomPresentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E1CB2A1D49B8410042B0CC /* CustomPresentViewController.swift */; };
@@ -81,6 +82,7 @@
 		A597E0B21D4DDA9700F2F9E9 /* DescController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DescController.swift; sourceTree = "<group>"; };
 		A5BE0E541D3DA94B00848517 /* PropertyTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PropertyTableViewCell.swift; sourceTree = "<group>"; };
 		A5BE0E581D3DBEBF00848517 /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
+		A5CB03A11D4EE9A40038F3ED /* SplashScreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SplashScreen.png; path = "Assets.xcassets/Images for app dev/SplashScreen.imageset/SplashScreen.png"; sourceTree = "<group>"; };
 		A5E1CB221D4997660042B0CC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A5E1CB241D49A9FA0042B0CC /* DetailImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailImageViewController.swift; sourceTree = "<group>"; };
 		A5E1CB2A1D49B8410042B0CC /* CustomPresentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CustomPresentViewController.swift; path = ../CustomPresentViewController.swift; sourceTree = "<group>"; };
@@ -130,6 +132,7 @@
 		A54567CC1D2CA86400F44BF0 /* HomeArcade */ = {
 			isa = PBXGroup;
 			children = (
+				A5CB03A11D4EE9A40038F3ED /* SplashScreen.png */,
 				A54567CD1D2CA86400F44BF0 /* AppDelegate.swift */,
 				A54567F61D331DE800F44BF0 /* FMDatabase.h */,
 				A54567F71D331DE800F44BF0 /* FMDatabase.m */,
@@ -260,6 +263,7 @@
 			files = (
 				A5E1CB231D4997660042B0CC /* Main.storyboard in Resources */,
 				A54567D81D2CA86400F44BF0 /* LaunchScreen.storyboard in Resources */,
+				A5CB03A21D4EE9A40038F3ED /* SplashScreen.png in Resources */,
 				A54567D51D2CA86400F44BF0 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
